@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 var myGamePiece;
 
 function startGame() {
-  myGamePiece = new component(80, 50, "red", 30, 220);
+  myGamePiece = new component(80, 50, "blue", 30, 220);
   gameArea.start();
 }
 
@@ -19,8 +19,8 @@ function startGame() {
 var gameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = window.innerWidth-100;
-        this.canvas.height = window.innerHeight-100;
+        this.canvas.width = window.innerWidth-50;
+        this.canvas.height = window.innerHeight-50;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(updateGameArea, 20);
@@ -39,12 +39,31 @@ function component(width, height, color, x, y) {
     this.y = y;
     this.update = function() {
         ctx = gameArea.context;
+        // ctx.id = "box";
         ctx.fillStyle = color;
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
     this.newPos = function() {
+      let yHeight = window.innerHeight-120
+      if (this.x < 20){
+        this.x = 20;
+        this.speedX = 0;
+      } else if (this.x > 400){
+        this.x = 400;
+        this.speedX = 0;
+      }
+       else {
         this.x += this.speedX;
+      }
+      if (this.y < 20){
+        this.y = 20;
+        this.speedY = 0;
+      } else if (this.y > (window.innerHeight-160)) {
+        this.y = (window.innerHeight-160);
+        this.speedY = 0;
+      } else {
         this.y += this.speedY;
+      }
     }
 }
 
