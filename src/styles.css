@@ -5,6 +5,7 @@
   width: 40px;
   left:0;
   top:280px;
+  z-index: 1;
 }
 
 #game {
@@ -64,6 +65,7 @@
   /* background-image: url('hellscape.png'); */
   top: 0px;
   position: absolute;
+  z-index: 0;
 }
 
 .imgClass {

@@ -16,18 +16,18 @@ var gameInterval = null
 
 
 function checkCollision(rock) {
-  const rockTop = positionToInteger(rock.style.top);
-  const rockLeftEdge = positionToInteger(rock.style.left);
-  const rockRightEdge = positionToInteger(rock.style.left) + 20;
-
-  const dodgerTop = positionToInteger(DODGER.style.top);
-  const dodgerLeftEdge = positionToInteger(DODGER.style.left);
-  const dodgerRightEdge = positionToInteger(DODGER.style.left) + 40;
-
-  if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
-  ) {
-    return true
-  }
+  // const rockTop = positionToInteger(rock.style.top);
+  // const rockLeftEdge = positionToInteger(rock.style.left);
+  // const rockRightEdge = positionToInteger(rock.style.left) + 20;
+  //
+  // const dodgerTop = positionToInteger(DODGER.style.top);
+  // const dodgerLeftEdge = positionToInteger(DODGER.style.left);
+  // const dodgerRightEdge = positionToInteger(DODGER.style.left) + 40;
+  //
+  // if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
+  // ) {
+  //   return true
+  // }
 
   // rocks are 20px high
   // DODGER is 20px high
@@ -62,7 +62,7 @@ function createRock(x) {
   function moveRock() {
      if (checkCollision(rock)){
        endGame()
-     }else if (positionToInteger(rock.style.right) < GAME_HEIGHT){
+     }else if (positionToInteger(rock.style.right) < GAME_WIDTH){
       right = right + Math.floor(Math.random() * 20)
       rock.style.right = `${right}px`
       window.requestAnimationFrame(moveRock)
@@ -174,8 +174,8 @@ function start() {
 
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-  }, 1000)
+  }, 400)
 
   bgLoop();
-  
+
 }
