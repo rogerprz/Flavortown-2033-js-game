@@ -13,9 +13,6 @@ function startGame() {
 }
 
 
-
-
-
 var gameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
