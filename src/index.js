@@ -48,7 +48,7 @@ function createRock(x) {
 
   function moveRock() {
      if (checkCollision(rock)){
-       endGame()
+       endGame();
      }else if (positionToInteger(rock.style.right) < 380){
       right = right + Math.floor(Math.random() * 20)
       rock.style.right = `${right}px`
@@ -66,10 +66,6 @@ function createRock(x) {
 
 // ENDLESS BACKGROUND BEGIN
 
-// DODGER.addEventListener("click", function(e){
-//   bgLoop();
-// })
-
 function bgLoop() {
   let bg = document.createElement('div')
   bg.className = 'bg'
@@ -79,7 +75,6 @@ function bgLoop() {
   GAME.appendChild(bg)
 
   function movebg() {
-    console.log(positionToInteger(bg.style.right));
      if (positionToInteger(bg.style.right) < 400){
       if (positionToInteger(bg.style.right) === 0) {
         let top = positionToInteger(bg.style.right) + 2
@@ -102,6 +97,7 @@ function bgLoop() {
 }
 
 // ENDLESS BACKGROUND END
+
 
 // END GAME
 
