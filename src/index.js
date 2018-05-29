@@ -12,26 +12,7 @@ const ROCKS = []
 const START = document.getElementById('start')
 
 
-let bg = document.createElement("div");
-bg.className = 'bg'
-GAME.appendChild(bg);
-bg.style.right = '-100px';
-
-function moveBG(object) {
-   if (positionToInteger(object.style.right) < 400){
-    let top = positionToInteger(object.style.right) + 4;
-    object.style.right = `${top}px`;
-    // window.requestAnimationFrame(moveBG)
-  }
-}
-
-setInterval(moveBG(bg), 10);
-
-DODGER.addEventListener("click", function(e){
-  // window.setInterval(moveBG(bg), 0);
-  // moveBG(bg);
-  window.requestAnimationFrame(moveBG)
-
+var gameInterval = null
 
 })
 
@@ -43,29 +24,38 @@ function createBG(){
   GAME.appendChild(bg);
 }
 
-
-var gameInterval = null
-
-
 function checkCollision(rock) {
-  const top = positionToInteger(rock.style.top)
+  const rockTop = positionToInteger(rock.style.top);
+  const rockLeftEdge = positionToInteger(rock.style.left);
+  const rockRightEdge = positionToInteger(rock.style.left) + 20;
+
+  const dodgerTop = positionToInteger(DODGER.style.top);
+  const dodgerLeftEdge = positionToInteger(DODGER.style.left);
+  const dodgerRightEdge = positionToInteger(DODGER.style.left) + 40;
+
+  if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
+  ) {
+    return true
+  }
+
   // rocks are 20px high
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px;
-  if (top > 360) {
-    const dodgerLeftEdge = positionToInteger(DODGER.style.left)
-    // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = positionToInteger(DODGER.style.left) + 40
 
-    const rockLeftEdge = positionToInteger(rock.style.left)
-    // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = positionToInteger(rock.style.left) + 20
-    if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
-    ) {
-      return true
+  // if (top > 360) {
+  //   const dodgerLeftEdge = positionToInteger(DODGER.style.left)
+  //   // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
+  //   const dodgerRightEdge = positionToInteger(DODGER.style.left) + 40
 
-    }
-  }
+  //   const rockLeftEdge = positionToInteger(rock.style.left)
+  //   // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
+  //   const rockRightEdge = positionToInteger(rock.style.left) + 20
+  //   if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
+  //   ) {
+  //     return true
+
+  //   }
+  // }
 }
 
 
@@ -95,6 +85,44 @@ function createRock(x) {
   return rock
 
 }
+
+// ENDLESS BACKGROUND BEGIN
+
+function bgLoop() {
+  let bg = document.createElement('div');
+  bg.className = 'bg';
+  let img = document.createElement('img');
+  // img.src = 'src/hellscape.png';
+  // img.className = 'imgClass';
+  // bg.appendChild(img);
+  GAME.appendChild(bg);
+  GAME.appendChild(bg);
+  bg.style.right = '-3184px';
+
+  function movebg() {
+    // console.log(img.clientWidth);
+     if (positionToInteger(bg.style.right) < 400){
+      if (positionToInteger(bg.style.right) === 0) {
+        let top = positionToInteger(bg.style.right) + 2
+        bg.style.right = `${top}px`
+        window.requestAnimationFrame(movebg);
+        bgLoop();
+      }else{
+        let top = positionToInteger(bg.style.right) + 2
+        bg.style.right = `${top}px`
+        window.requestAnimationFrame(movebg);
+      }
+    }else{
+      bg.remove()
+    }
+  }
+
+  movebg()
+  return bg
+
+}
+
+// ENDLESS BACKGROUND END
 
 
 // END GAME
@@ -156,4 +184,7 @@ function start() {
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
+
+  bgLoop();
+
 }
