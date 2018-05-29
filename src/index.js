@@ -4,8 +4,8 @@
  */
 const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
-const GAME_HEIGHT = window.innerWidth-50
-const GAME_WIDTH = 400
+const GAME_HEIGHT = 600
+const GAME_WIDTH = window.innerWidth-10
 const UP_ARROW = 38 // use e.which!
 const DOWN_ARROW = 40 // use e.which!
 const ROCKS = []
