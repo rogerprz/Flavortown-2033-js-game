@@ -1,3 +1,4 @@
+
 /**
  * Don't change these constants!
  */
@@ -31,6 +32,7 @@ DODGER.addEventListener("click", function(e){
   // moveBG(bg);
   window.requestAnimationFrame(moveBG)
 
+
 })
 
 function createBG(){
@@ -60,9 +62,11 @@ function checkCollision(rock) {
     if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
     ) {
       return true
+
     }
   }
 }
+
 
 function createRock(x) {
   const rock = document.createElement('div')
@@ -88,6 +92,7 @@ function createRock(x) {
   moveRock()
   ROCKS.push(rock)
   return rock
+
 }
 
 
@@ -124,6 +129,7 @@ function moveDodgerLeft() {
   window.requestAnimationFrame(moveL)
 }
 
+
 function moveDodgerRight() {
   function moveR(){
     if(positionToInteger(DODGER.style.left)+40+4 <= GAME_WIDTH){
@@ -132,12 +138,6 @@ function moveDodgerRight() {
   }
   window.requestAnimationFrame(moveR)
 }
-
-
-
-
-
-
 
 /**
  * @param {string} p The position property
