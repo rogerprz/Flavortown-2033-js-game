@@ -57,11 +57,11 @@
 }
 
 .bg {
-  /* width: 3186px; */
+  width: 3186px;
   /* 3186px */
   height: 100%;
   background: tan;
-  /* background-image: url('hellscape.png'); */
+  background-image: url('hellscape.png');
   top: 0px;
   position: absolute;
 }

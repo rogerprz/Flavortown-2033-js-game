@@ -83,15 +83,15 @@ function bgLoop() {
   let bg = document.createElement('div');
   bg.className = 'bg';
   let img = document.createElement('img');
-  img.src = 'src/hellscape.png';
-  img.className = 'imgClass';
-  bg.appendChild(img);
+  // img.src = 'src/hellscape.png';
+  // img.className = 'imgClass';
+  // bg.appendChild(img);
+  GAME.appendChild(bg);
   GAME.appendChild(bg);
   bg.style.right = '-3184px';
 
-  GAME.appendChild(bg)
-
   function movebg() {
+    console.log(img.clientWidth);
      if (positionToInteger(bg.style.right) < 400){
       if (positionToInteger(bg.style.right) === 0) {
         let top = positionToInteger(bg.style.right) + 2
