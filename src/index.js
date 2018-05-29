@@ -11,47 +11,6 @@ const ROCKS = []
 const START = document.getElementById('start')
 
 
-// ENDLESS BACKGROUND BEGIN
-
-DODGER.addEventListener("click", function(e){
-  bgLoop();
-})
-
-function bgLoop() {
-  let bg = document.createElement('div')
-  bg.className = 'bg'
-  GAME.appendChild(bg);
-  bg.style.right = '-100px';
-
-  GAME.appendChild(bg)
-
-  function movebg() {
-     if (positionToInteger(bg.style.right) < 400){
-      if (positionToInteger(bg.style.right) === 0) {
-        let top = positionToInteger(bg.style.right) + 2
-        bg.style.right = `${top}px`
-        window.requestAnimationFrame(movebg);
-        bgLoop();
-      }else{
-        let top = positionToInteger(bg.style.right) + 2
-        bg.style.right = `${top}px`
-        window.requestAnimationFrame(movebg);
-      }
-    }else{
-      bg.remove()
-    }
-  }
-
-  movebg()
-  return bg
-
-}
-
-// ENDLESS BACKGROUND END
-
-
-
-
 var gameInterval = null
 
 
@@ -104,6 +63,44 @@ function createRock(x) {
 
 }
 
+// ENDLESS BACKGROUND BEGIN
+
+// DODGER.addEventListener("click", function(e){
+//   bgLoop();
+// })
+
+function bgLoop() {
+  let bg = document.createElement('div')
+  bg.className = 'bg'
+  GAME.appendChild(bg);
+  bg.style.right = '-3184px';
+
+  GAME.appendChild(bg)
+
+  function movebg() {
+    console.log(positionToInteger(bg.style.right));
+     if (positionToInteger(bg.style.right) < 400){
+      if (positionToInteger(bg.style.right) === 0) {
+        let top = positionToInteger(bg.style.right) + 2
+        bg.style.right = `${top}px`
+        window.requestAnimationFrame(movebg);
+        bgLoop();
+      }else{
+        let top = positionToInteger(bg.style.right) + 2
+        bg.style.right = `${top}px`
+        window.requestAnimationFrame(movebg);
+      }
+    }else{
+      bg.remove()
+    }
+  }
+
+  movebg()
+  return bg
+
+}
+
+// ENDLESS BACKGROUND END
 
 // END GAME
 
@@ -164,4 +161,7 @@ function start() {
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
+
+  bgLoop();
+  
 }
