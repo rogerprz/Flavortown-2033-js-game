@@ -25,6 +25,20 @@ function createBG(){
 }
 
 function checkCollision(rock) {
+
+  // const rockTop = positionToInteger(rock.style.top);
+  // const rockLeftEdge = positionToInteger(rock.style.left);
+  // const rockRightEdge = positionToInteger(rock.style.left) + 20;
+  //
+  // const dodgerTop = positionToInteger(DODGER.style.top);
+  // const dodgerLeftEdge = positionToInteger(DODGER.style.left);
+  // const dodgerRightEdge = positionToInteger(DODGER.style.left) + 40;
+  //
+  // if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
+  // ) {
+  //   return true
+  // }
+
   const rockTop = positionToInteger(rock.style.top);
   const rockLeftEdge = positionToInteger(rock.style.left);
   const rockRightEdge = positionToInteger(rock.style.left) + 20;
@@ -165,7 +179,7 @@ function start() {
 
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-  }, 1000)
+  }, 400)
 
   bgLoop();
 
