@@ -73,3 +73,23 @@ function moveShip() {
     myGamePiece.speedX += 1;
   }
 }
+
+class Obstacle{
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+    this.x = 150
+    this.y = 150
+  }
+
+}
+
+function generateObstacle() {
+    h = (Math.random()) * 200
+    w = (Math.random()) * 200
+    myObstacle = new Obstacle(h, w)
+        ctx = gameArea.context;
+        ctx.fillStyle = "brown";
+        ctx.fillRect(myObstacle.x, myObstacle.y, myObstacle.width, myObstacle.height);
+
+}
