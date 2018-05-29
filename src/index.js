@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 var myGamePiece;
 
 function startGame() {
-  myGamePiece = new component(80, 50, "red", 10, 120);
+  myGamePiece = new component(80, 50, "red", 30, 220);
   gameArea.start();
 }
 
@@ -57,12 +57,19 @@ function updateGameArea() {
 
 function moveShip() {
   if (event.keyCode === 38){
+    // moves up
     myGamePiece.speedY -= 1;
   }
-  if (event.keyCode === 40){
+  else if  (event.keyCode === 40){
+    // moves down
     myGamePiece.speedY += 1;
   }
-
-
-
+  else if  (event.keyCode === 37){
+    // moves left
+    myGamePiece.speedX -= 1;
+  }
+  else if  (event.keyCode === 39){
+    // moves right
+    myGamePiece.speedX += 1;
+  }
 }
