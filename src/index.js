@@ -6,9 +6,11 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
 
 var myGamePiece;
+var newObstacle;
 
 function startGame() {
   myGamePiece = new component(80, 50, "blue", 30, 220);
+  newObstacle = new component(50, 50, "green", 200,450)
   gameArea.start();
 }
 
@@ -68,6 +70,7 @@ function updateGameArea() {
     gameArea.clear();
     myGamePiece.newPos();
     myGamePiece.update();
+    newObstacle.update()
 }
 
 
@@ -90,22 +93,26 @@ function moveShip() {
   }
 }
 
-class Obstacle{
-  constructor(height, width) {
-    this.height = height;
-    this.width = width;
-    this.x = 150
-    this.y = 150
-  }
-
-}
-
-function generateObstacle() {
-    h = (Math.random()) * 200
-    w = (Math.random()) * 200
-    myObstacle = new Obstacle(h, w)
-        ctx = gameArea.context;
-        ctx.fillStyle = "brown";
-        ctx.fillRect(myObstacle.x, myObstacle.y, myObstacle.width, myObstacle.height);
-
-}
+// function obstacle(width, height, color, x, y) {
+//     this.width = width;
+//     this.height = height;
+//     this.x =x
+//     this.y = y
+//     this.update = function() {
+//         ctx = gameArea.context;
+//         // ctx.id = "box";
+//         ctx.fillStyle = color;
+//         ctx.fillRect(this.x, this.y, this.width, this.height);
+//     }
+//
+// }
+//
+// function generateObstacle() {
+//     h = (Math.random()) * 200
+//     w = (Math.random()) * 200
+//     myObstacle = new Obstacle(h, w)
+//         ctx = gameArea.context;
+//         ctx.fillStyle = "brown";
+//         ctx.fillRect(myObstacle.x, myObstacle.y, myObstacle.width, myObstacle.height);
+//
+// }
