@@ -8,3 +8,10 @@
   /* margin-right: auto; */
   /* margin-left: auto; */
 }
+
+#avatar {
+  background-color: black;
+  height: 20px;
+  position: absolute;
+  width: 40px;
+}
