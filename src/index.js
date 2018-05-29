@@ -11,35 +11,45 @@ const ROCKS = []
 const START = document.getElementById('start')
 
 
-let bg = document.createElement("div");
-bg.className = 'bg'
-GAME.appendChild(bg);
-bg.style.right = '-100px';
-
-function moveBG(object) {
-   if (positionToInteger(object.style.right) < 400){
-    let top = positionToInteger(object.style.right) + 4;
-    object.style.right = `${top}px`;
-    // window.requestAnimationFrame(moveBG)
-  }
-}
-
-setInterval(moveBG(bg), 10);
+// ENDLESS BACKGROUND BEGIN
 
 DODGER.addEventListener("click", function(e){
-  // window.setInterval(moveBG(bg), 0);
-  // moveBG(bg);
-  window.requestAnimationFrame(moveBG)
-
-
+  bgLoop();
 })
 
-function createBG(){
-  let bg = document.createElement("div");
+function bgLoop() {
+  let bg = document.createElement('div')
   bg.className = 'bg'
-  bg.style.right = '-100px';
   GAME.appendChild(bg);
+  bg.style.right = '-100px';
+
+  GAME.appendChild(bg)
+
+  function movebg() {
+     if (positionToInteger(bg.style.right) < 400){
+      if (positionToInteger(bg.style.right) === 0) {
+        let top = positionToInteger(bg.style.right) + 2
+        bg.style.right = `${top}px`
+        window.requestAnimationFrame(movebg);
+        bgLoop();
+      }else{
+        let top = positionToInteger(bg.style.right) + 2
+        bg.style.right = `${top}px`
+        window.requestAnimationFrame(movebg);
+      }
+    }else{
+      bg.remove()
+    }
+  }
+
+  movebg()
+  return bg
+
 }
+
+// ENDLESS BACKGROUND END
+
+
 
 
 var gameInterval = null
