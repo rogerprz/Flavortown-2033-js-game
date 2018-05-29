@@ -1,21 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <!-- To install npm globally http-server
-      npm install http-server -g
-    -->
-      <!--to get the server to run.
-          http-server
-      -->
-</head>
-<body onload="startGame()" onkeydown="moveShip()">
+  <head>
+    <title>Rock Dodger!</title>
+    <link rel="stylesheet" type="text/css" href="src/styles.css">
+  </head>
 
-
-
-
-</body>
-  <link rel="stylesheet" href="src/styles.css">
-
-  <script type="text/javascript" src="src/index.js">  </script>
-
+  <body>
+    <div id="game">
+      <a id="start" href="javascript:start()">START</a>
+      <div id="dodger" style="bottom: 0px; left: 180px;"></div>
+    </div>
+    <script src="src/index.js"></script>
+  </body>
 </html>
