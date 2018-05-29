@@ -80,7 +80,7 @@ function createRock(x) {
   function moveRock() {
      if (checkCollision(rock)){
        endGame()
-     }else if (positionToInteger(rock.style.right) < 380){
+     }else if (positionToInteger(rock.style.right) < GAME_WIDTH){
       right = right + Math.floor(Math.random() * 20)
       rock.style.right = `${right}px`
       window.requestAnimationFrame(moveRock)
@@ -153,6 +153,6 @@ function start() {
   START.style.display = 'none'
 
   gameInterval = setInterval(function() {
-    createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-  }, 1000)
+    createRock(Math.floor(Math.random() *  (GAME_WIDTH)))
+  }, 300)
 }
