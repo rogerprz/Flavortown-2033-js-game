@@ -4,10 +4,10 @@
  */
 const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
-const GAME_HEIGHT = 400
+const GAME_HEIGHT = window.innerWidth-50
 const GAME_WIDTH = 400
-const LEFT_ARROW = 37 // use e.which!
-const RIGHT_ARROW = 39 // use e.which!
+const UP_ARROW = 38 // use e.which!
+const DOWN_ARROW = 40 // use e.which!
 const ROCKS = []
 const START = document.getElementById('start')
 
@@ -108,22 +108,22 @@ function endGame() {
 }
 
 function moveDodger(e) {
-   if (e.which === LEFT_ARROW){
-     moveDodgerLeft()
+   if (e.which === UP_ARROW){
+     moveDodgerUp()
      e.preventDefault()
      e.stopPropagation()
    }
-   if (e.which === RIGHT_ARROW){
+   if (e.which === DOWN_ARROW){
      moveDodgerRight()
      e.preventDefault()
      e.stopPropagation()
    }
 }
 
-function moveDodgerLeft() {
+function moveDodgerUp() {
   function moveL(){
-    if(positionToInteger(DODGER.style.left)-4 >= 0){
-      DODGER.style.left = `${positionToInteger(DODGER.style.left)-4}px`
+    if(positionToInteger(DODGER.style.top)-4 >= 0){
+      DODGER.style.top = `${positionToInteger(DODGER.style.top)-4}px`
     }
   }
   window.requestAnimationFrame(moveL)
@@ -132,8 +132,8 @@ function moveDodgerLeft() {
 
 function moveDodgerRight() {
   function moveR(){
-    if(positionToInteger(DODGER.style.left)+40+4 <= GAME_WIDTH){
-      DODGER.style.left = `${positionToInteger(DODGER.style.left)+4}px`
+    if(positionToInteger(DODGER.style.top)+40+4 <= GAME_WIDTH){
+      DODGER.style.top = `${positionToInteger(DODGER.style.top)+4}px`
     }
   }
   window.requestAnimationFrame(moveR)
