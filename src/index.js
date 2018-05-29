@@ -12,9 +12,9 @@ const ROCKS = []
 const START = document.getElementById('start')
 
 
-var gameInterval = null
+var gameInterval = null;
 
-})
+
 
 function createBG(){
   let bg = document.createElement("div");
