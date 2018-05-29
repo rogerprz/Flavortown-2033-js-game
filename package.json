@@ -1,0 +1,23 @@
+{
+  "name": "oedipigs-js-game",
+  "version": "1.0.0",
+  "description": "Game for all",
+  "main": "index.js",
+  "scripts": {
+    "test": "na"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rogercodes1/Oedipigs-js-game.git"
+  },
+  "keywords": [
+    "Flying",
+    "Pig"
+  ],
+  "author": "[\"Roger Perez\",\"Joe Greiner\", \"Brie Saez\"]",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rogercodes1/Oedipigs-js-game/issues"
+  },
+  "homepage": "https://github.com/rogercodes1/Oedipigs-js-game#readme"
+}
