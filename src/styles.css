@@ -1,0 +1,10 @@
+#ground{
+  position: fixed;
+  background-size: auto;
+  padding 25px;
+  bottom:0px;
+  /* height: 100px; */
+  background-color: green;
+  /* margin-right: auto; */
+  /* margin-left: auto; */
+}
