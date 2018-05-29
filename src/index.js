@@ -12,10 +12,20 @@ const ROCKS = []
 const START = document.getElementById('start')
 
 
-var gameInterval = null
+var gameInterval = null;
 
+
+
+function createBG(){
+  let bg = document.createElement("div");
+  bg.className = 'bg'
+  debugger;
+  bg.style.right = '-100px';
+  GAME.appendChild(bg);
+}
 
 function checkCollision(rock) {
+
   // const rockTop = positionToInteger(rock.style.top);
   // const rockLeftEdge = positionToInteger(rock.style.left);
   // const rockRightEdge = positionToInteger(rock.style.left) + 20;
@@ -29,24 +39,19 @@ function checkCollision(rock) {
   //   return true
   // }
 
-  // rocks are 20px high
-  // DODGER is 20px high
-  // GAME_HEIGHT - 20 - 20 = 360px;
+  const rockTop = positionToInteger(rock.style.top);
+  const rockLeftEdge = positionToInteger(rock.style.left);
+  const rockRightEdge = positionToInteger(rock.style.left) + 20;
 
-  // if (top > 360) {
-  //   const dodgerLeftEdge = positionToInteger(DODGER.style.left)
-  //   // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-  //   const dodgerRightEdge = positionToInteger(DODGER.style.left) + 40
+  const dodgerTop = positionToInteger(DODGER.style.top);
+  const dodgerLeftEdge = positionToInteger(DODGER.style.left);
+  const dodgerRightEdge = positionToInteger(DODGER.style.left) + 40;
 
-  //   const rockLeftEdge = positionToInteger(rock.style.left)
-  //   // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-  //   const rockRightEdge = positionToInteger(rock.style.left) + 20
-  //   if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
-  //   ) {
-  //     return true
+  if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge) {
+    return true
+  }
 
-  //   }
-  // }
+
 }
 
 
@@ -83,15 +88,15 @@ function bgLoop() {
   let bg = document.createElement('div');
   bg.className = 'bg';
   let img = document.createElement('img');
-  img.src = 'src/hellscape.png';
-  img.className = 'imgClass';
-  bg.appendChild(img);
+  // img.src = 'src/hellscape.png';
+  // img.className = 'imgClass';
+  // bg.appendChild(img);
+  GAME.appendChild(bg);
   GAME.appendChild(bg);
   bg.style.right = '-3184px';
 
-  GAME.appendChild(bg)
-
   function movebg() {
+    // console.log(img.clientWidth);
      if (positionToInteger(bg.style.right) < 400){
       if (positionToInteger(bg.style.right) === 0) {
         let top = positionToInteger(bg.style.right) + 2
@@ -134,23 +139,23 @@ function moveDodger(e) {
      e.stopPropagation()
    }
    if (e.which === DOWN_ARROW){
-     moveDodgerRight()
+     moveDodgerDown()
      e.preventDefault()
      e.stopPropagation()
    }
 }
 
 function moveDodgerUp() {
-  function moveL(){
+  function moveUp(){
     if(positionToInteger(DODGER.style.top)-4 >= 0){
       DODGER.style.top = `${positionToInteger(DODGER.style.top)-4}px`
     }
   }
-  window.requestAnimationFrame(moveL)
+  window.requestAnimationFrame(moveUp)
 }
 
 
-function moveDodgerRight() {
+function moveDodgerDown() {
   function moveR(){
     if(positionToInteger(DODGER.style.top)+40+4 <= GAME_WIDTH){
       DODGER.style.top = `${positionToInteger(DODGER.style.top)+4}px`
