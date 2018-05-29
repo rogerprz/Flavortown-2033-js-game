@@ -91,7 +91,7 @@ function bgLoop() {
   bg.style.right = '-3184px';
 
   function movebg() {
-    console.log(img.clientWidth);
+    // console.log(img.clientWidth);
      if (positionToInteger(bg.style.right) < 400){
       if (positionToInteger(bg.style.right) === 0) {
         let top = positionToInteger(bg.style.right) + 2
