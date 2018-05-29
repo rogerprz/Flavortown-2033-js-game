@@ -71,18 +71,18 @@ function checkCollision(rock) {
 function createRock(x) {
   const rock = document.createElement('div')
   rock.className = 'rock'
-  rock.style.left = `${x}px`
+  rock.style.top = `${x}px`
 
-  var top = 0
-  rock.style.top = top
+  var right = 0
+  rock.style.right = right
   GAME.appendChild(rock)
 
   function moveRock() {
      if (checkCollision(rock)){
        endGame()
-     }else if (positionToInteger(rock.style.top) < 380){
-      top = top + 2
-      rock.style.top = `${top}px`
+     }else if (positionToInteger(rock.style.right) < 380){
+      right = right + Math.floor(Math.random() * 20)
+      rock.style.right = `${right}px`
       window.requestAnimationFrame(moveRock)
     }else{
       rock.remove()
