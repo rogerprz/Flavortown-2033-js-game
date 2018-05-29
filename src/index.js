@@ -38,6 +38,7 @@ DODGER.addEventListener("click", function(e){
 function createBG(){
   let bg = document.createElement("div");
   bg.className = 'bg'
+  debugger;
   bg.style.right = '-100px';
   GAME.appendChild(bg);
 }
@@ -80,7 +81,7 @@ function createRock(x) {
   function moveRock() {
      if (checkCollision(rock)){
        endGame()
-     }else if (positionToInteger(rock.style.right) < GAME_HEIGHT){
+     }else if (positionToInteger(rock.style.right) < GAME_WIDTH){
       right = right + Math.floor(Math.random() * 20)
       rock.style.right = `${right}px`
       window.requestAnimationFrame(moveRock)
@@ -114,23 +115,23 @@ function moveDodger(e) {
      e.stopPropagation()
    }
    if (e.which === DOWN_ARROW){
-     moveDodgerRight()
+     moveDodgerDown()
      e.preventDefault()
      e.stopPropagation()
    }
 }
 
 function moveDodgerUp() {
-  function moveL(){
+  function moveUp(){
     if(positionToInteger(DODGER.style.top)-4 >= 0){
       DODGER.style.top = `${positionToInteger(DODGER.style.top)-4}px`
     }
   }
-  window.requestAnimationFrame(moveL)
+  window.requestAnimationFrame(moveUp)
 }
 
 
-function moveDodgerRight() {
+function moveDodgerDown() {
   function moveR(){
     if(positionToInteger(DODGER.style.top)+40+4 <= GAME_WIDTH){
       DODGER.style.top = `${positionToInteger(DODGER.style.top)+4}px`
