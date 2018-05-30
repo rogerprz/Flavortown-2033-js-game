@@ -73,7 +73,19 @@ body{
     text-align: center;
     /* list-style-position: inside; */
   }
+
   #pause{
+    /* height: 50px;
+    display: none;
+    width: 50px;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 3;
+    background-color: "blue"; */
+  }
+
+  .pauseBtn{
     height: 50px;
     display: none;
     width: 50px;
@@ -81,9 +93,13 @@ body{
     top: 10px;
     right: 20px;
     z-index: 3;
-    background-color: "blue";
+    background-image: url('src/blue_pause.png');
   }
 
+  .pauseBtn:hover{
+    background: fuchsia;
+    cursor: pointer;
+  }
 
 #game {
   background-color: #111;
