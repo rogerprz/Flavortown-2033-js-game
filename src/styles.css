@@ -8,6 +8,22 @@ body{
   position: absolute;
 }
 
+#game table{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#logo{
+  background-image: url('logo.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 254px;
+  height: 75px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+
 #dodger {
   /* background-color: white; */
   background-image: url('ship.png');
@@ -39,7 +55,7 @@ body{
     z-index: 2;
     cursor: pointer;
   }
-  
+
   #top-scores{
     /* padding-top:100px; */
   }
