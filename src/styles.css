@@ -1,12 +1,14 @@
 #dodger {
   background-color: white;
   height: 50px;
-  margin-left:10px;
+  /* margin-left:10px; */
   position: absolute;
   width: 40px;
   left:0;
   top:280px;
   z-index: 1;
+  border: 1px solid #4CAF50;
+
 }
 
 #game {
@@ -32,6 +34,8 @@
   height: 20px;
   background: tan;
   position: absolute;
+  border: 1px solid #4CAF50;
+
 }
 
 .rock:before {
@@ -44,6 +48,8 @@
   position: absolute;
   top: 0;
   width: 9px;
+  border: 1px solid red;
+
 }
 
 .rock:after {
@@ -56,9 +62,11 @@
   left: 0;
   position: absolute;
   width: 9px;
+  border: 1px solid blue;
+
 }
 
-.bg {
+/* .bg {
   width: 3186px;
   height: 100%;
   background: tan;
@@ -70,4 +78,4 @@
 
 .imgClass {
   height: 100%;
-}
+} */
