@@ -13,7 +13,7 @@
   const OVERLAY = document.getElementById("overlay")
   const PAUSE = document.getElementById("pause")
   const HIGH_SCORE = document.getElementById('high-scores')
-  const ROCK_SPEED = 2
+  let ROCK_SPEED = 2
   // 20px for rock size
   //40 for dodger size
   // 10 margin change
@@ -56,27 +56,6 @@
 
     rock.style.right = right
     GAME.appendChild(rock)
-
-    let speed = setInterval(function () {
-      return ++ROCK_SPEED}, 5000)
-  function moveRock() {
-    rock.style.right = `${right += speed}px`;
-
-    let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
-     if (checkCollision(rock)){
-       console.log("if statement");
-       return endGame()
-
-     }
-     if (rockLocation > GAME_WIDTH-5){
-       rock.remove();
-       score+=10
-       updateScore();
-     }
-     else if (impactLocation < GAME_WIDTH){
-       window.requestAnimationFrame(moveRock)
-     }
-
     if (right>impactLocation-65){
       // DODGER INFORMATION
       let dodgerTopEdge = positionToInteger(DODGER.style.top);
@@ -96,7 +75,7 @@
         (rockTopEdge <= dodgerBottomEdge && rockBottomEdge >= dodgerBottomEdge)
         )
       }
-    }
+
   }
 
   function createRock(x) {
@@ -109,7 +88,11 @@
     GAME.appendChild(rock)
 
     function moveRock() {
-      rock.style.right = `${right += 2}px`;
+      setInterval(function () {
+        rock.style.right = `${right += ROCK_SPEED}px`;
+        ROCK_SPEED
+        return rock.style.right}, 5000)
+        console.log(ROCK_SPEED)
 
       let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
       if (checkCollision(rock)){
