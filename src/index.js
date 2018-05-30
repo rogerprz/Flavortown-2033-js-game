@@ -63,6 +63,29 @@
   function checkCollision(rock) {
     const right = positionToInteger(rock.style.right)
 
+<<<<<<< HEAD
+=======
+  var right = 0
+  rock.style.right = right
+  GAME.appendChild(rock)
+  let timer = setInterval()
+  function moveRock() {
+    rock.style.right = `${right += 2}px`;
+
+    let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
+     if (checkCollision(rock)){
+       return endGame()
+     }
+     if (rockLocation > GAME_WIDTH-5){
+       rock.remove();
+       score+=10
+       updateScore();
+     }
+     else if (impactLocation < GAME_WIDTH){
+       window.requestAnimationFrame(moveRock)
+     }
+
+>>>>>>> 9b334781b9e202e604efe89ca99ac800f4238163
     if (right>impactLocation-65){
       // DODGER INFORMATION
       let dodgerTopEdge = positionToInteger(DODGER.style.top);
