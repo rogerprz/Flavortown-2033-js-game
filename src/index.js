@@ -18,9 +18,8 @@ const HIGH_SCORE = document.getElementById('high-scores')
 //40 for dodger size
 // 10 margin change
 const impactLocation = GAME_WIDTH-30-40
-
-
 var gameInterval = null;
+let score = 0;
 
 
 fetch(USERS_URL).then(response => response.json()).then(json=> highScore(json))
@@ -89,7 +88,9 @@ function createRock(x) {
        return endGame()
      }
      if (rockLocation > GAME_WIDTH-5){
-       rock.remove()
+       rock.remove();
+       ++score
+       updateScore();
      }
      else if (impactLocation < GAME_WIDTH){
        window.requestAnimationFrame(moveRock)
@@ -108,16 +109,12 @@ function bgLoop() {
   let bg = document.createElement('div');
   bg.className = 'bg';
   let img = document.createElement('img');
-  // img.src = 'src/hellscape.png';
-  // img.className = 'imgClass';
-  // bg.appendChild(img);
   GAME.appendChild(bg);
   GAME.appendChild(bg);
   bg.style.right = `-${4778 - window.innerWidth}px`;
   // bg.style.right = '-3184px';
 
   function movebg() {
-    // console.log(img.clientWidth);
      if (positionToInteger(bg.style.right) < 400){
       if (positionToInteger(bg.style.right) === 0) {
         let top = positionToInteger(bg.style.right) + 1
@@ -184,6 +181,11 @@ function moveDodgerDown() {
       DODGER.style.top = `${down + 7}px`
     }
   })
+}
+
+function updateScore(){
+  let scoreNumber = document.getElementById("scorenumber");
+  scoreNumber.innerText = score;
 }
 
 
