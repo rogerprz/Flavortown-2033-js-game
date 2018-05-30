@@ -54,7 +54,6 @@
   function checkCollision(rock) {
     const right = positionToInteger(rock.style.right)
 
-    var right = 0;
     rock.style.right = right
     GAME.appendChild(rock)
 
