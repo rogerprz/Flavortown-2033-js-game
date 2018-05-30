@@ -26,6 +26,7 @@ DODGER.addEventListener("click", function(e){
   console.log(DODGER.style.top);
 })
 
+// GET request for high scores
 fetch(USERS_URL).then(response => response.json()).then(json=> highScore(json))
 
 function highScore (array) {
@@ -33,13 +34,18 @@ function highScore (array) {
     return a.scores[0].score - b.scores[0].score
   })
   let sortedFinal = sortedHalfwayThere.reverse()
-
+  // let i = 0
+  // while (i < 2) {
   sortedFinal.forEach(obj => {
+
     tr = document.createElement('tr')
     tr.innerHTML = `<th>${obj.name}</th>
     <th>${obj.scores[0].score}</th>`
     HIGH_SCORE.append(tr)
+
   })
+  // i++
+// }
 
 }
 
@@ -151,7 +157,15 @@ function endGame() {
   for(let i = 0; i < ROCKS.length; i++){
     ROCKS[i].remove()
   }
-  alert("YOU LOSE!")
+  // alert("YOU LOSE")
+  var modal = document.getElementById('myModal')
+  var closeButton = document.getElementsByClassName("close")[0]
+  modal.style.display = "block";
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+
 }
 
 function moveDodger(e) {
