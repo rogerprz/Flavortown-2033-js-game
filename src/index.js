@@ -2,7 +2,6 @@
 /**
  * Don't change these constants!
  */
- let cLog = console.log
 const USERS_URL = 'http://localhost:3000/api/v1/users'
 const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
@@ -22,7 +21,11 @@ const impactLocation = GAME_WIDTH-30-40
 var gameInterval = null;
 let score = 0;
 
+DODGER.addEventListener("click", function(e){
+  console.log(DODGER.style.top);
+})
 
+// GET request for high scores
 fetch(USERS_URL).then(response => response.json()).then(json=> highScore(json))
 
 function highScore (array) {
@@ -30,13 +33,18 @@ function highScore (array) {
     return a.scores[0].score - b.scores[0].score
   })
   let sortedFinal = sortedHalfwayThere.reverse()
-
+  // let i = 0
+  // while (i < 2) {
   sortedFinal.forEach(obj => {
+
     tr = document.createElement('tr')
     tr.innerHTML = `<th>${obj.name}</th>
     <th>${obj.scores[0].score}</th>`
     HIGH_SCORE.append(tr)
+
   })
+  // i++
+// }
 
 }
 
@@ -142,7 +150,23 @@ function endGame() {
   for(let i = 0; i < ROCKS.length; i++){
     ROCKS[i].remove()
   }
-  alert("YOU LOSE!")
+  // alert("YOU LOSE")
+  var modal = document.getElementById('myModal')
+  var closeButton = document.getElementsByClassName("close")[0]
+  modal.style.display = "block";
+  closeButton.onclick = function() {
+    modal.style.display = "none";
+  }
+  var scoreSubmit = document.getElementById('score-form')
+  scoreSubmit.addEventListener("submit", (e) => {
+    e.preventDefault()
+    let name = document.getElementById('score-input')
+    name.value
+    debugger
+    })
+
+
+
 }
 
 function moveDodger(e) {
@@ -168,11 +192,10 @@ function moveDodgerUp() {
   })
 }
 
-
 function moveDodgerDown() {
   window.requestAnimationFrame(function(){
     const down = positionToInteger(DODGER.style.top)
-    if (down < GAME_HEIGHT){
+    if (down < 496){
       DODGER.style.top = `${down + 8}px`
     }
   })
@@ -182,7 +205,6 @@ function updateScore(){
   let scoreNumber = document.getElementById("scorenumber");
   scoreNumber.innerText = score;
 }
-
 
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
