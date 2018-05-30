@@ -94,7 +94,9 @@ function createRock(x) {
 
     let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
      if (checkCollision(rock)){
+       console.log("if statement");
        return endGame()
+
      }
      if (rockLocation > GAME_WIDTH-5){
        rock.remove();
@@ -165,12 +167,20 @@ function endGame() {
   }
   var scoreSubmit = document.getElementById('score-form')
   scoreSubmit.addEventListener("submit", (e) => {
+    console.log("submit event triggered");
     e.preventDefault()
     let name = document.getElementById('score-input')
-    name.value
-    debugger
-    })
+    let score = document.getElementById('scorenumber')
+    // name.value
 
+    fetch(USERS_URL, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(
+       {name: `${name.value}`,
+       score: parseInt(score.innerHTML) })
+     }).then(response => response.json()).then(json => console.log(json))
+    })
 
 
 }
