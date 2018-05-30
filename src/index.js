@@ -13,6 +13,7 @@ const DOWN_ARROW = 40 // use e.which!
 const ROCKS = []
 const START = document.getElementById('start')
 const OVERLAY = document.getElementById("overlay")
+const HIGH_SCORE = document.getElementById('high-scores')
 // 20px for rock size
 //40 for dodger size
 // 10 margin change
@@ -21,11 +22,16 @@ const impactLocation = GAME_WIDTH-30-40
 
 var gameInterval = null;
 
-const HIGH_SCORE = document.getElementById('high-scores')
-fetch(USERS_URL).then(response => response.json()).then(json=>highScore(json))
+
+fetch(USERS_URL).then(response => response.json()).then(json=> highScore(json))
 
 function highScore (array) {
-  array.forEach(obj => {
+  let sortedHalfwayThere = array.sort(function (a,b) {
+    return a.scores[0].score - b.scores[0].score
+  })
+  let sortedFinal = sortedHalfwayThere.reverse()
+
+  sortedFinal.forEach(obj => {
     tr = document.createElement('tr')
     tr.innerHTML = `<th>${obj.name}</th>
     <th>${obj.scores[0].score}</th>`
