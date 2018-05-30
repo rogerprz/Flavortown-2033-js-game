@@ -63,41 +63,11 @@
   function checkCollision(rock) {
     const right = positionToInteger(rock.style.right)
 
-<<<<<<< HEAD
-=======
-  var right = 0
-  rock.style.right = right
-  GAME.appendChild(rock)
-  let timer = setInterval()
-  function moveRock() {
-    rock.style.right = `${right += 2}px`;
-
-    let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
-     if (checkCollision(rock)){
-       return endGame()
-     }
-     if (rockLocation > GAME_WIDTH-5){
-       rock.remove();
-       score+=10
-       updateScore();
-     }
-     else if (impactLocation < GAME_WIDTH){
-       window.requestAnimationFrame(moveRock)
-     }
-
->>>>>>> 9b334781b9e202e604efe89ca99ac800f4238163
     if (right>impactLocation-65){
-      // DODGER INFORMATION
-      let dodgerTopEdge = positionToInteger(DODGER.style.top);
-      let dodgerBottomEdge = positionToInteger(DODGER.style.top) + 100;
-      let dodgerLeftEdge = positionToInteger(DODGER.style.left);
-      let dodgerRightEdge = positionToInteger(DODGER.style.left + 65);
-
-      // ROCK INFORMATION
-      let rockTopEdge = positionToInteger(rock.style.top);
-      let rockBottomEdge = positionToInteger(rock.style.top) + 40;
-      let rockLeftEdge = positionToInteger(rock.style.left);
-      let rockRightEdge = positionToInteger(rock.style.left + 40)
+      const dodgerTopEdge = positionToInteger(DODGER.style.top);
+      const rockTopEdge = positionToInteger(rock.style.top);
+      const dodgerBottomEdge = positionToInteger(DODGER.style.top) + 65;
+      const rockBottomEdge = positionToInteger(rock.style.top) + 30;
 
       return (
         (rockTopEdge <= dodgerTopEdge && rockBottomEdge >= dodgerTopEdge) ||
