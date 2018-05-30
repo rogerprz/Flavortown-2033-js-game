@@ -1,3 +1,13 @@
+body{
+  background: #000;
+}
+
+#game{
+  background-image: url('hellscape.jpg');
+  top: 0px;
+  position: absolute;
+}
+
 #dodger {
   /* background-color: white; */
   background-image: url('ship.png');
@@ -12,8 +22,8 @@
   left:25px;
   top:280px;
   z-index: 1;
-
 }
+
 #overlay{
     position: fixed;
     color:white;
@@ -29,9 +39,11 @@
     z-index: 2;
     cursor: pointer;
   }
+  
   #top-scores{
     /* padding-top:100px; */
   }
+  
   table{
     text-align: center;
     /* list-style-position: inside; */
@@ -103,4 +115,4 @@
 
 .imgClass {
   height: 100%;
-} */
+}
