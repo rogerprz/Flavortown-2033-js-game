@@ -5,6 +5,7 @@
    */
   const USERS_URL = 'http://localhost:3000/api/v1/users'
   const DODGER = document.getElementById('dodger')
+  DODGER.style.left = 25
   const GAME = document.getElementById('game')
   const GAME_HEIGHT = 600
   const GAME_WIDTH = window.innerWidth
@@ -62,12 +63,18 @@
   function checkCollision(rock) {
     const right = positionToInteger(rock.style.right)
 
-
     if (right>impactLocation-65){
-      const dodgerTopEdge = positionToInteger(DODGER.style.top);
-      const rockTopEdge = positionToInteger(rock.style.top);
-      const dodgerBottomEdge = positionToInteger(DODGER.style.top) + 65;
-      const rockBottomEdge = positionToInteger(rock.style.top) + 30;
+      // DODGER INFORMATION
+      let dodgerTopEdge = positionToInteger(DODGER.style.top);
+      let dodgerBottomEdge = positionToInteger(DODGER.style.top) + 100;
+      let dodgerLeftEdge = positionToInteger(DODGER.style.left);
+      let dodgerRightEdge = positionToInteger(DODGER.style.left + 65);
+
+      // ROCK INFORMATION
+      let rockTopEdge = positionToInteger(rock.style.top);
+      let rockBottomEdge = positionToInteger(rock.style.top) + 40;
+      let rockLeftEdge = positionToInteger(rock.style.left);
+      let rockRightEdge = positionToInteger(rock.style.left + 40)
 
       return (
         (rockTopEdge <= dodgerTopEdge && rockBottomEdge >= dodgerTopEdge) ||
@@ -78,7 +85,6 @@
   }
 
   function createRock(x) {
-    console.log("creating rocks")
     const rock = document.createElement('div')
     rock.className = 'rock'
     rock.style.top = `${x}px`

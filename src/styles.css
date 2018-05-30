@@ -44,8 +44,8 @@ body{
   /* margin-left:10px; */
   position: absolute;
   /* width: 40px; */
-  left:25px;
-  top:280px;
+  left: 25px;
+  top: 280px;
   z-index: 1;
 }
 
@@ -116,7 +116,7 @@ body{
   background-image: url('guy.png');
   background-size: cover;
   background-repeat: no-repeat;
-  /* background: tan; */
+  /* background: fuchsia; */
   position: absolute;
 
 }
