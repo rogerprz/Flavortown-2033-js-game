@@ -1,26 +1,23 @@
-// document.addEventListener('DOMContentLoaded', function() {
 
-  /**
-   * Don't change these constants!
-   */
-  const USERS_URL = 'http://localhost:3000/api/v1/users'
-  const DODGER = document.getElementById('dodger')
-  const GAME = document.getElementById('game')
-  const GAME_HEIGHT = 600
-  const GAME_WIDTH = window.innerWidth
-  const UP_ARROW = 38 // use e.which!
-  const DOWN_ARROW = 40 // use e.which!
-  const RIGHT_ARROW = 39
+  const USERS_URL = 'http://localhost:3000/api/v1/users';
+  const DODGER = document.getElementById('dodger');
+  const GAME = document.getElementById('game');
+  const GAME_HEIGHT = 600;
+  const GAME_WIDTH = window.innerWidth;
+  const UP_ARROW = 38 ;// use e.which!
+  const DOWN_ARROW = 40; // use e.which!
+  const RIGHT_ARROW = 39;
   const LEFT_ARROW = 37
   const ROCKS = []
   const START = document.getElementById('start')
   const OVERLAY = document.getElementById("overlay")
   const PAUSE = document.getElementById("pause")
   const HIGH_SCORE = document.getElementById('high-scores')
+  const ROCK_SPEED = 2
   // 20px for rock size
   //40 for dodger size
   // 10 margin change
-  const impactLocation = GAME_WIDTH-30-40
+  const impactLocation = GAME_WIDTH-30-40;
   var gameInterval = null;
   let score = 0;
 
@@ -36,9 +33,7 @@
       return a.scores[0].score - b.scores[0].score
     })
     let sortedFinal = sortedHalfwayThere.reverse()
-    // let i = 0
-    // while (i < 2) {
-    sortedFinal.forEach(obj => {
+    sortedFinal.forEach(obj =>{
 
       tr = document.createElement('tr')
       tr.innerHTML = `<th>${obj.name}</th>
@@ -46,9 +41,6 @@
       HIGH_SCORE.append(tr)
 
     })
-    // i++
-  // }
-
   }
 
 
@@ -62,12 +54,14 @@
   function checkCollision(rock) {
     const right = positionToInteger(rock.style.right)
 
-  var right = 0
-  rock.style.right = right
-  GAME.appendChild(rock)
-  let timer = setInterval()
+    var right = 0;
+    rock.style.right = right
+    GAME.appendChild(rock)
+
+    let speed = setInterval(function () {
+      return ++ROCK_SPEED}, 5000)
   function moveRock() {
-    rock.style.right = `${right += 2}px`;
+    rock.style.right = `${right += speed}px`;
 
     let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
      if (checkCollision(rock)){
@@ -94,6 +88,7 @@
         (rockTopEdge <= dodgerBottomEdge && rockBottomEdge >= dodgerBottomEdge)
         )
       }
+    }
   }
 
   function createRock(x) {
@@ -122,7 +117,6 @@
         window.requestAnimationFrame(moveRock)
       }
     }
-
     moveRock()
     ROCKS.push(rock)
     return rock
@@ -147,20 +141,20 @@
           bg.style.right = `${top}px`
           window.requestAnimationFrame(movebg);
           bgLoop();
-        }else{
+        } else {
           let top = positionToInteger(bg.style.right) + 1;
           bg.style.right = `${top}px`;
           window.requestAnimationFrame(movebg);
         }
-      }else{
+      } else{
         bg.remove()
       }
     }
 
     movebg()
     return bg
-
   }
+
   var scoreSubmit = document.getElementById('score-form')
   scoreSubmit.addEventListener("submit", (e) => {
     e.preventDefault()
@@ -190,8 +184,7 @@
     scoreSubmit.addEventListener("submit", (e) => {
       e.preventDefault()
       let name = document.getElementById('score-input')
-      name.value
-      debugger
+      name.value;
       })
   }
 
@@ -244,7 +237,8 @@
         if (left < GAME_WIDTH){
           DODGER.style.left = `${left+8}px`;
         }
-      }else{
+      }
+      else{
         DODGER.style.left = `${25+8}px`;
       }
     })
@@ -257,9 +251,10 @@
         if (left > 25){
           DODGER.style.left = `${left-8}px`;
         }
-      }else{
-        DODGER.style.left = `${25}px`;
       }
+      else{
+        DODGER.style.left = `${25}px`;
+        }
       if (left > 25){
         DODGER.style.left = `${left-8}px`;
       }
@@ -279,9 +274,6 @@
     window.addEventListener('keydown', moveDodger);
     bgLoop();
     OVERLAY.style.display = "none";
-    // PAUSE.style.display = "block"
-    // PAUSE.addEventListener('click',pauseHandler);
-
 
     START.style.display = 'none';
     gameInterval = setInterval(function() {
@@ -297,16 +289,5 @@ function pauseGame(e){
   let action = e.target.dataset.pause
   if (action === "pauseGame"){
     alert("Game has been Paused \n Click okay to resume")
-    // action = "gamePaused"
   }
 }
-
-
-  // cLog("top dodger",dodgerTopEdge)
-  // cLog("bottom dodger",dodgerBottomEdge)
-  // cLog("rock top",rockTopEdge)
-  // cLog("rock Bottom",rockBottomEdge)
-  // cLog("first", (rockTopEdge <= dodgerTopEdge && rockBottomEdge >= dodgerTopEdge))
-  // cLog("Second", (rockTopEdge >= dodgerTopEdge && rockBottomEdge <= dodgerBottomEdge))
-  //     cLog("third",(rockTopEdge <= dodgerBottomEdge && rockBottomEdge >= dodgerBottomEdge))
-// })
