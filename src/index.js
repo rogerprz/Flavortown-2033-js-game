@@ -41,7 +41,6 @@ function highScore (array) {
 }
 
 
-
 function createBG(){
   let bg = document.createElement("div");
   bg.className = 'bg'

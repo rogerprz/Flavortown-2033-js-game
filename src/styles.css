@@ -1,11 +1,28 @@
 body{
   background: #000;
+  font-family: 'Press Start 2P', cursive;
 }
 
 #game{
   background-image: url('hellscape.jpg');
   top: 0px;
   position: absolute;
+}
+
+#game table{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#logo{
+  background-image: url('logo.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 254px;
+  height: 75px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
 }
 
 #dodger {
@@ -39,7 +56,7 @@ body{
     z-index: 2;
     cursor: pointer;
   }
-  
+
   #top-scores{
     /* padding-top:100px; */
   }
