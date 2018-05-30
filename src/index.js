@@ -171,7 +171,6 @@
     })
 
   // ENDLESS BACKGROUND END
-}
 
 function moveDodger(e) {
   let action = e.which
