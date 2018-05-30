@@ -142,6 +142,12 @@
     return bg
 
   }
+  var scoreSubmit = document.getElementById('score-form')
+  scoreSubmit.addEventListener("submit", (e) => {
+    e.preventDefault()
+    let name = document.getElementById('score-input')
+    name.value
+    })
 
   // ENDLESS BACKGROUND END
 
@@ -266,21 +272,15 @@
 
   function pauseHandler(e) {
     pauseGame(e)
-
   }
 
-  function pauseGame(e){
-    let action = e.target.alt
-    if (action === "pauseGame"){
-      action = "gamePaused"
-      ROCKS
-      clearInterval(gameInterval)
-    }
-    else if (action === "gamePaused"){
-      debugger;
-
-    }
+function pauseGame(e){
+  let action = e.target.dataset.pause
+  if (action === "pauseGame"){
+    alert("Game has been Paused \n Click okay to resume")
+    // action = "gamePaused"
   }
+}
 
 
   // cLog("top dodger",dodgerTopEdge)
