@@ -64,15 +64,15 @@ function createRock(x) {
   function moveRock() {
     rock.style.right = `${right += 2}px`;
 
+    let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
      if (checkCollision(rock)){
-       debugger;
        return endGame()
      }
-     if (impactLocation < GAME_WIDTH){
-       window.requestAnimationFrame(moveRock)
-     }
-     else {
+     if (rockLocation > GAME_WIDTH-5){
        rock.remove()
+     }
+     else if (impactLocation < GAME_WIDTH){
+       window.requestAnimationFrame(moveRock)
      }
   }
 
