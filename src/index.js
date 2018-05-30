@@ -162,7 +162,6 @@ function endGame() {
     e.preventDefault()
     let name = document.getElementById('score-input')
     name.value
-    debugger
     })
 
 
@@ -230,16 +229,12 @@ function pauseHandler(e) {
 }
 
 function pauseGame(e){
-  let action = e.target.alt
+  let action = e.target.dataset.pause
   if (action === "pauseGame"){
-    action = "gamePaused"
-    ROCKS
-    clearInterval(gameInterval)
+    alert("Game has been Paused \n Click okay to resume")
+    // action = "gamePaused"
   }
-  else if (action === "gamePaused"){
-    debugger;
 
-  }
 }
 
 
