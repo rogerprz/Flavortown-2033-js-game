@@ -12,6 +12,7 @@ const DOWN_ARROW = 40 // use e.which!
 const ROCKS = []
 const START = document.getElementById('start')
 const OVERLAY = document.getElementById("overlay")
+const PAUSE = document.getElementById("pause")
 // 20px for rock size
 //40 for dodger size
 // 10 margin change
@@ -152,7 +153,7 @@ function moveDodgerUp() {
   window.requestAnimationFrame(function() {
     const top = positionToInteger(DODGER.style.top)
     if (top > 0){
-      DODGER.style.top = `${top-7}px`;
+      DODGER.style.top = `${top-8}px`;
     }
   })
 }
@@ -162,7 +163,7 @@ function moveDodgerDown() {
   window.requestAnimationFrame(function(){
     const down = positionToInteger(DODGER.style.top)
     if (down < GAME_HEIGHT){
-      DODGER.style.top = `${down + 7}px`
+      DODGER.style.top = `${down + 8}px`
     }
   })
 }
@@ -176,6 +177,7 @@ function start() {
   window.addEventListener('keydown', moveDodger);
   bgLoop();
   OVERLAY.style.display = "none";
+  PAUSE.style.display = "block"
 
 
   START.style.display = 'none';
@@ -184,5 +186,12 @@ function start() {
     createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
   }, 1000)
 }
-function off() {
+
+PAUSE.addEventListener('click', function(e) {
+  // body...
+});
+
+function pauseHandler(e) {
+  
+
 }
