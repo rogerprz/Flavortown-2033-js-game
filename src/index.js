@@ -84,39 +84,39 @@ function createRock(x) {
 
 // ENDLESS BACKGROUND BEGIN
 
-// function bgLoop() {
-//   let bg = document.createElement('div');
-//   bg.className = 'bg';
-//   let img = document.createElement('img');
-//   // img.src = 'src/hellscape.png';
-//   // img.className = 'imgClass';
-//   // bg.appendChild(img);
-//   GAME.appendChild(bg);
-//   GAME.appendChild(bg);
-//   bg.style.right = '-3184px';
+function bgLoop() {
+  let bg = document.createElement('div');
+  bg.className = 'bg';
+  let img = document.createElement('img');
+  // img.src = 'src/hellscape.png';
+  // img.className = 'imgClass';
+  // bg.appendChild(img);
+  GAME.appendChild(bg);
+  GAME.appendChild(bg);
+  bg.style.right = '-3184px';
 
-  // function movebg() {
-  //   // console.log(img.clientWidth);
-  //    if (positionToInteger(bg.style.right) < 400){
-  //     if (positionToInteger(bg.style.right) === 0) {
-  //       let top = positionToInteger(bg.style.right) + 2
-  //       bg.style.right = `${top}px`
-  //       window.requestAnimationFrame(movebg);
-  //       bgLoop();
-  //     }else{
-  //       let top = positionToInteger(bg.style.right) + 2;
-  //       bg.style.right = `${top}px`;
-  //       window.requestAnimationFrame(movebg);
-  //     }
-  //   }else{
-  //     bg.remove()
-  //   }
-  // }
+  function movebg() {
+    // console.log(img.clientWidth);
+     if (positionToInteger(bg.style.right) < 400){
+      if (positionToInteger(bg.style.right) === 0) {
+        let top = positionToInteger(bg.style.right) + 2
+        bg.style.right = `${top}px`
+        window.requestAnimationFrame(movebg);
+        bgLoop();
+      }else{
+        let top = positionToInteger(bg.style.right) + 2;
+        bg.style.right = `${top}px`;
+        window.requestAnimationFrame(movebg);
+      }
+    }else{
+      bg.remove()
+    }
+  }
 
-//   movebg()
-//   return bg
-//
-// }
+  movebg()
+  return bg
+
+}
 
 // ENDLESS BACKGROUND END
 
@@ -171,9 +171,10 @@ function positionToInteger(p) {
 }
 
 function start() {
-  window.addEventListener('keydown', moveDodger)
+  window.addEventListener('keydown', moveDodger);
+  bgLoop();
 
-  START.style.display = 'none'
+  START.style.display = 'none';
 
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
