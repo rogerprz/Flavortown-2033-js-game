@@ -6,8 +6,28 @@
   </head>
 
   <body>
+    <a id="start" href="javascript:start()">
     <div id="game">
-      <a id="start" href="javascript:start()">START</a>
+      <div id="overlay" onclick="off()" style="">
+        <div>
+          <h1>START</h1>
+          
+          <h2>TOP SCORES</h2>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Score</th>
+            </tr>
+            <tr>
+              <th>Joe</th>
+              <th>200</th>
+            </tr>
+
+          </table>
+
+        </div>
+      </div>
+      </a>
       <div id="dodger" style="top:280px;"></div>
     </div>
     <script src="src/index.js"></script>

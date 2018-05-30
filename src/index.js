@@ -11,6 +11,7 @@ const UP_ARROW = 38 // use e.which!
 const DOWN_ARROW = 40 // use e.which!
 const ROCKS = []
 const START = document.getElementById('start')
+const OVERLAY = document.getElementById("overlay")
 // 20px for rock size
 //40 for dodger size
 // 10 margin change
@@ -173,10 +174,14 @@ function positionToInteger(p) {
 function start() {
   window.addEventListener('keydown', moveDodger);
   bgLoop();
+  OVERLAY.style.display = "none";
+
 
   START.style.display = 'none';
 
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
   }, 1000)
+}
+function off() {
 }
