@@ -15,7 +15,7 @@ const OVERLAY = document.getElementById("overlay")
 // 20px for rock size
 //40 for dodger size
 // 10 margin change
-const impactLocation = GAME_WIDTH-20-40
+const impactLocation = GAME_WIDTH-30-40
 
 
 var gameInterval = null;
@@ -33,11 +33,11 @@ function checkCollision(rock) {
   const right = positionToInteger(rock.style.right)
 
 
-  if (right>impactLocation){
+  if (right>impactLocation-65){
     const dodgerTopEdge = positionToInteger(DODGER.style.top);
     const rockTopEdge = positionToInteger(rock.style.top);
-    const dodgerBottomEdge = positionToInteger(DODGER.style.top) + 40;
-    const rockBottomEdge = positionToInteger(rock.style.top) + 20;
+    const dodgerBottomEdge = positionToInteger(DODGER.style.top) + 65;
+    const rockBottomEdge = positionToInteger(rock.style.top) + 30;
     cLog("top dodger",dodgerTopEdge)
     cLog("bottom dodger",dodgerBottomEdge)
     cLog("rock top",rockTopEdge)
@@ -94,18 +94,19 @@ function bgLoop() {
   // bg.appendChild(img);
   GAME.appendChild(bg);
   GAME.appendChild(bg);
-  bg.style.right = '-3184px';
+  bg.style.right = `-${4778 - window.innerWidth}px`;
+  // bg.style.right = '-3184px';
 
   function movebg() {
     // console.log(img.clientWidth);
      if (positionToInteger(bg.style.right) < 400){
       if (positionToInteger(bg.style.right) === 0) {
-        let top = positionToInteger(bg.style.right) + 2
+        let top = positionToInteger(bg.style.right) + 1
         bg.style.right = `${top}px`
         window.requestAnimationFrame(movebg);
         bgLoop();
       }else{
-        let top = positionToInteger(bg.style.right) + 2;
+        let top = positionToInteger(bg.style.right) + 1;
         bg.style.right = `${top}px`;
         window.requestAnimationFrame(movebg);
       }
