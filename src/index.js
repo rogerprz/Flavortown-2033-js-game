@@ -2,7 +2,6 @@
 /**
  * Don't change these constants!
  */
- let cLog = console.log
 const USERS_URL = 'http://localhost:3000/api/v1/users'
 const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
@@ -159,9 +158,17 @@ function endGame() {
   var modal = document.getElementById('myModal')
   var closeButton = document.getElementsByClassName("close")[0]
   modal.style.display = "block";
-  span.onclick = function() {
+  closeButton.onclick = function() {
     modal.style.display = "none";
   }
+  var scoreSubmit = document.getElementById('score-form')
+  scoreSubmit.addEventListener("submit", (e) => {
+    e.preventDefault()
+    let name = document.getElementById('score-input')
+    name.value
+    debugger
+    })
+
 
 
 }
