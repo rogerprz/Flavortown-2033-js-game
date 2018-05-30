@@ -3,6 +3,7 @@
  * Don't change these constants!
  */
  let cLog = console.log
+const USERS_URL = 'http://localhost:3000/api/v1/users'
 const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
 const GAME_HEIGHT = 600
@@ -13,14 +14,31 @@ const ROCKS = []
 const START = document.getElementById('start')
 const OVERLAY = document.getElementById("overlay")
 const PAUSE = document.getElementById("pause")
+const HIGH_SCORE = document.getElementById('high-scores')
 // 20px for rock size
 //40 for dodger size
 // 10 margin change
 const impactLocation = GAME_WIDTH-30-40
-
-
 var gameInterval = null;
+let score = 0;
 
+
+fetch(USERS_URL).then(response => response.json()).then(json=> highScore(json))
+
+function highScore (array) {
+  let sortedHalfwayThere = array.sort(function (a,b) {
+    return a.scores[0].score - b.scores[0].score
+  })
+  let sortedFinal = sortedHalfwayThere.reverse()
+
+  sortedFinal.forEach(obj => {
+    tr = document.createElement('tr')
+    tr.innerHTML = `<th>${obj.name}</th>
+    <th>${obj.scores[0].score}</th>`
+    HIGH_SCORE.append(tr)
+  })
+
+}
 
 
 function createBG(){
@@ -71,7 +89,9 @@ function createRock(x) {
        return endGame()
      }
      if (rockLocation > GAME_WIDTH-5){
-       rock.remove()
+       rock.remove();
+       ++score
+       updateScore();
      }
      else if (impactLocation < GAME_WIDTH){
        window.requestAnimationFrame(moveRock)
@@ -90,16 +110,12 @@ function bgLoop() {
   let bg = document.createElement('div');
   bg.className = 'bg';
   let img = document.createElement('img');
-  // img.src = 'src/hellscape.png';
-  // img.className = 'imgClass';
-  // bg.appendChild(img);
   GAME.appendChild(bg);
   GAME.appendChild(bg);
   bg.style.right = `-${4778 - window.innerWidth}px`;
   // bg.style.right = '-3184px';
 
   function movebg() {
-    // console.log(img.clientWidth);
      if (positionToInteger(bg.style.right) < 400){
       if (positionToInteger(bg.style.right) === 0) {
         let top = positionToInteger(bg.style.right) + 1
@@ -168,6 +184,11 @@ function moveDodgerDown() {
   })
 }
 
+function updateScore(){
+  let scoreNumber = document.getElementById("scorenumber");
+  scoreNumber.innerText = score;
+}
+
 
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
@@ -192,6 +213,6 @@ PAUSE.addEventListener('click', function(e) {
 });
 
 function pauseHandler(e) {
-  
+
 
 }

@@ -1,3 +1,38 @@
+body{
+  background: #000;
+  font-family: 'Press Start 2P', cursive;
+}
+
+#game{
+  background-image: url('hellscape.jpg');
+  top: 0px;
+  position: absolute;
+}
+
+#game table{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#score{
+  color: #fff;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 5;
+}
+
+#logo{
+  background-image: url('logo.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 254px;
+  height: 75px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+
 #dodger {
   /* background-color: white; */
   background-image: url('ship.png');
@@ -12,8 +47,8 @@
   left:25px;
   top:280px;
   z-index: 1;
-
 }
+
 #overlay{
     position: fixed;
     color:white;
@@ -29,9 +64,11 @@
     z-index: 2;
     cursor: pointer;
   }
+
   #top-scores{
     /* padding-top:100px; */
   }
+  
   table{
     text-align: center;
     /* list-style-position: inside; */
