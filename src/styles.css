@@ -44,8 +44,8 @@ body{
   /* margin-left:10px; */
   position: absolute;
   /* width: 40px; */
-  left:25px;
-  top:280px;
+  left: 25px;
+  top: 280px;
   z-index: 1;
 }
 
@@ -74,30 +74,21 @@ body{
     /* list-style-position: inside; */
   }
 
-  #pause{
-    /* height: 50px;
-    display: none;
-    width: 50px;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    z-index: 3;
-    background-color: "blue"; */
-  }
-
   .pauseBtn{
-    height: 50px;
+    height: 40px;
     display: none;
-    width: 50px;
+    width: 40px;
     position: absolute;
     top: 10px;
     right: 20px;
     z-index: 3;
-    background-image: url('src/blue_pause.png');
+    background-image: url('blue_pause.png');
+    background-size: cover;
   }
 
   .pauseBtn:hover{
-    background: fuchsia;
+    background-image: url('red_pause.png');
+    background-size: cover;
     cursor: pointer;
   }
 
@@ -125,16 +116,13 @@ body{
   background-image: url('guy.png');
   background-size: cover;
   background-repeat: no-repeat;
-  /* background: tan; */
+  /* background: fuchsia; */
   position: absolute;
 
 }
 
 .rock:before {
   content: "";
-  /* border-bottom: 6px solid tan;
-  border-left: 6px solid #111;
-  border-right: 6px solid #111; */
   height: 0;
   left: 0;
   position: absolute;
@@ -144,9 +132,6 @@ body{
 
 .rock:after {
   content: "";
-  /* border-left: 6px solid #111;
-  border-right: 6px solid #111;
-  border-top: 6px solid tan; */
   bottom: 0;
   height: 0;
   left: 0;
