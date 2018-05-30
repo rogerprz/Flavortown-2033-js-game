@@ -68,22 +68,29 @@ body{
   #top-scores{
     /* padding-top:100px; */
   }
-  
+
   table{
     text-align: center;
     /* list-style-position: inside; */
   }
-  #pause{
-    height: 50px;
+
+  .pauseBtn{
+    height: 40px;
     display: none;
-    width: 50px;
+    width: 40px;
     position: absolute;
     top: 10px;
     right: 20px;
     z-index: 3;
-    background-color: "blue";
+    background-image: url('blue_pause.png');
+    background-size: cover;
   }
 
+  .pauseBtn:hover{
+    background-image: url('red_pause.png');
+    background-size: cover;
+    cursor: pointer;
+  }
 
 #game {
   background-color: #111;
@@ -116,9 +123,6 @@ body{
 
 .rock:before {
   content: "";
-  /* border-bottom: 6px solid tan;
-  border-left: 6px solid #111;
-  border-right: 6px solid #111; */
   height: 0;
   left: 0;
   position: absolute;
@@ -128,9 +132,6 @@ body{
 
 .rock:after {
   content: "";
-  /* border-left: 6px solid #111;
-  border-right: 6px solid #111;
-  border-top: 6px solid tan; */
   bottom: 0;
   height: 0;
   left: 0;
@@ -151,4 +152,41 @@ body{
 
 .imgClass {
   height: 100%;
+}
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
