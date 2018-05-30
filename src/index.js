@@ -3,6 +3,7 @@
  * Don't change these constants!
  */
  let cLog = console.log
+const USERS_URL = 'http://localhost:3000/api/v1/users'
 const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
 const GAME_HEIGHT = 600
@@ -19,6 +20,19 @@ const impactLocation = GAME_WIDTH-30-40
 
 
 var gameInterval = null;
+
+const HIGH_SCORE = document.getElementById('high-scores')
+fetch(USERS_URL).then(response => response.json()).then(json=>highScore(json))
+
+function highScore (array) {
+  array.forEach(obj => {
+    tr = document.createElement('tr')
+    tr.innerHTML = `<th>${obj.name}</th>
+    <th>${obj.scores[0].score}</th>`
+    HIGH_SCORE.append(tr)
+  })
+
+}
 
 
 
