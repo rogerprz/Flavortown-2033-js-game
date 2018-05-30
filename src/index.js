@@ -57,13 +57,7 @@ function checkCollision(rock) {
     const rockTopEdge = positionToInteger(rock.style.top);
     const dodgerBottomEdge = positionToInteger(DODGER.style.top) + 65;
     const rockBottomEdge = positionToInteger(rock.style.top) + 30;
-    cLog("top dodger",dodgerTopEdge)
-    cLog("bottom dodger",dodgerBottomEdge)
-    cLog("rock top",rockTopEdge)
-    cLog("rock Bottom",rockBottomEdge)
-    cLog("first", (rockTopEdge <= dodgerTopEdge && rockBottomEdge >= dodgerTopEdge))
-    cLog("Second", (rockTopEdge >= dodgerTopEdge && rockBottomEdge <= dodgerBottomEdge))
-        cLog("third",(rockTopEdge <= dodgerBottomEdge && rockBottomEdge >= dodgerBottomEdge))
+
     return (
       (rockTopEdge <= dodgerTopEdge && rockBottomEdge >= dodgerTopEdge) ||
       (rockTopEdge >= dodgerTopEdge && rockBottomEdge <= dodgerBottomEdge) ||
@@ -199,20 +193,38 @@ function start() {
   bgLoop();
   OVERLAY.style.display = "none";
   PAUSE.style.display = "block"
+  PAUSE.addEventListener('click',pauseHandler);
 
 
   START.style.display = 'none';
-
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
   }, 1000)
 }
 
-PAUSE.addEventListener('click', function(e) {
-  // body...
-});
-
 function pauseHandler(e) {
-
+  pauseGame(e)
 
 }
+
+function pauseGame(e){
+  let action = e.target.alt
+  if (action === "pauseGame"){
+    action = "gamePaused"
+    ROCKS
+    clearInterval(gameInterval)
+  }
+  else if (action === "gamePaused"){
+    debugger;
+
+  }
+}
+
+
+// cLog("top dodger",dodgerTopEdge)
+// cLog("bottom dodger",dodgerBottomEdge)
+// cLog("rock top",rockTopEdge)
+// cLog("rock Bottom",rockBottomEdge)
+// cLog("first", (rockTopEdge <= dodgerTopEdge && rockBottomEdge >= dodgerTopEdge))
+// cLog("Second", (rockTopEdge >= dodgerTopEdge && rockBottomEdge <= dodgerBottomEdge))
+//     cLog("third",(rockTopEdge <= dodgerBottomEdge && rockBottomEdge >= dodgerBottomEdge))
