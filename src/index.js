@@ -22,6 +22,9 @@ const impactLocation = GAME_WIDTH-30-40
 var gameInterval = null;
 let score = 0;
 
+DODGER.addEventListener("click", function(e){
+  console.log(DODGER.style.top);
+})
 
 fetch(USERS_URL).then(response => response.json()).then(json=> highScore(json))
 
@@ -57,13 +60,13 @@ function checkCollision(rock) {
     const rockTopEdge = positionToInteger(rock.style.top);
     const dodgerBottomEdge = positionToInteger(DODGER.style.top) + 65;
     const rockBottomEdge = positionToInteger(rock.style.top) + 30;
-    cLog("top dodger",dodgerTopEdge)
-    cLog("bottom dodger",dodgerBottomEdge)
-    cLog("rock top",rockTopEdge)
-    cLog("rock Bottom",rockBottomEdge)
-    cLog("first", (rockTopEdge <= dodgerTopEdge && rockBottomEdge >= dodgerTopEdge))
-    cLog("Second", (rockTopEdge >= dodgerTopEdge && rockBottomEdge <= dodgerBottomEdge))
-        cLog("third",(rockTopEdge <= dodgerBottomEdge && rockBottomEdge >= dodgerBottomEdge))
+    // cLog("top dodger",dodgerTopEdge)
+    // cLog("bottom dodger",dodgerBottomEdge)
+    // cLog("rock top",rockTopEdge)
+    // cLog("rock Bottom",rockBottomEdge)
+    // cLog("first", (rockTopEdge <= dodgerTopEdge && rockBottomEdge >= dodgerTopEdge))
+    // cLog("Second", (rockTopEdge >= dodgerTopEdge && rockBottomEdge <= dodgerBottomEdge))
+    //     cLog("third",(rockTopEdge <= dodgerBottomEdge && rockBottomEdge >= dodgerBottomEdge))
     return (
       (rockTopEdge <= dodgerTopEdge && rockBottomEdge >= dodgerTopEdge) ||
       (rockTopEdge >= dodgerTopEdge && rockBottomEdge <= dodgerBottomEdge) ||
@@ -174,11 +177,10 @@ function moveDodgerUp() {
   })
 }
 
-
 function moveDodgerDown() {
   window.requestAnimationFrame(function(){
     const down = positionToInteger(DODGER.style.top)
-    if (down < GAME_HEIGHT){
+    if (down < 496){
       DODGER.style.top = `${down + 8}px`
     }
   })
@@ -188,7 +190,6 @@ function updateScore(){
   let scoreNumber = document.getElementById("scorenumber");
   scoreNumber.innerText = score;
 }
-
 
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
