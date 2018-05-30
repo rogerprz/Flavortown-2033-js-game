@@ -14,6 +14,7 @@ const START = document.getElementById('start')
 const OVERLAY = document.getElementById("overlay")
 const PAUSE = document.getElementById("pause")
 const HIGH_SCORE = document.getElementById('high-scores')
+
 // 20px for rock size
 //40 for dodger size
 // 10 margin change
@@ -82,7 +83,7 @@ function createRock(x) {
   var right = 0
   rock.style.right = right
   GAME.appendChild(rock)
-
+  let timer = setInterval()
   function moveRock() {
     rock.style.right = `${right += 2}px`;
 
@@ -92,7 +93,7 @@ function createRock(x) {
      }
      if (rockLocation > GAME_WIDTH-5){
        rock.remove();
-       ++score
+       score+=10
        updateScore();
      }
      else if (impactLocation < GAME_WIDTH){
