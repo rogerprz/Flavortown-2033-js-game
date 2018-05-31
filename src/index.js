@@ -17,6 +17,7 @@ let random= function (min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
 let ROCK_SPEED = 4
+let rockGenerateTime = 1000
 
 ROCK_SPEED = setInterval(speedIncrease, 10000)
 function speedIncrease() {
@@ -24,6 +25,13 @@ function speedIncrease() {
     ++ROCK_SPEED
   }
 }
+// rockGenerateTime = setInterval(reduceGenerateTime,30000)
+// function reduceGenerateTime() {
+//   if (rockGenerateTime<150){
+//     rockGenerateTime-=500
+//   }
+//
+// }
 // let ROCK_SPEED= 2
 
 // function one(ROCK_SPEED) {
@@ -192,6 +200,7 @@ function moveDodger(e) {
 
   function endGame() {
     clearInterval(gameInterval)
+    ROCK_SPEED=0
     window.removeEventListener('keydown', moveDodger)
     for(let i = 0; i < ROCKS.length; i++){
       ROCKS[i].remove()
@@ -310,7 +319,7 @@ function moveDodger(e) {
     // START.style.display = 'none';
     gameInterval = setInterval(function() {
       createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
-    }, 1000)
+    }, rockGenerateTime)
     // rockSpeed = setInterval(function() {
     //   debugger;
     //   moveRock(speed)
