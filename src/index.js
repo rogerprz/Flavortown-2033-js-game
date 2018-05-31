@@ -6,7 +6,7 @@ const START = document.getElementById('start')
 const OVERLAY = document.getElementById("overlay")
 const PAUSE = document.getElementById("pause")
 const HIGH_SCORE = document.getElementById('high-scores')
-
+const SCORE_DISPLAY = document.getElementById("score")
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = window.innerWidth;
 const UP_ARROW = 38 ;// use e.which!
@@ -52,7 +52,9 @@ function speedIncrease() {
 
 
   // GET request for high scores
-  fetch(USERS_URL).then(response => response.json()).then(json=> highScore(json))
+  fetch(USERS_URL)
+  .then(response => response.json())
+  .then(json=> highScore(json))
 
   function highScore (array) {
     let sortScores = [...array].sort((a,b)=>{
@@ -66,21 +68,31 @@ function speedIncrease() {
       HIGH_SCORE.append(tr)
     }
   }
+  // END of high scores
 
 
-  function createBG(){
-    let bg = document.createElement("div");
-    bg.className = 'bg'
-    bg.style.right = '-100px';
-    GAME.appendChild(bg);
+  //Start Game
+
+  function start() {
+    window.addEventListener('keydown', moveDodger);
+    bgLoop();
+    OVERLAY.style.display = "none";
+    PAUSE.style.display="block"
+    SCORE_DISPLAY.style.display = "block"
+    gameInterval = setInterval(function() {
+      createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
+    }, rockGenerateTime)
   }
+  // End Start
 
+
+//Game movement functions
   function checkCollision(rock) {
-    const right = positionToInteger(rock.style.right)
-
+    const right = positionToInteger(rock.style.right);
     rock.style.right = right
+
     GAME.appendChild(rock)
-    if (right>impactLocation-65){
+    if (right>impactLocation-65){ //What is the 65 for?
       const dodgerTopEdge = positionToInteger(DODGER.style.top);
       const rockTopEdge = positionToInteger(rock.style.top);
       const dodgerBottomEdge = positionToInteger(DODGER.style.top) + 65;
@@ -95,6 +107,7 @@ function speedIncrease() {
   }
 
   function createRock(x) {
+    //x is the location of where the rock will appear on the right side
     const rock = document.createElement('div')
     rock.className = 'rock'
     rock.style.top = `${x}px`
@@ -103,6 +116,7 @@ function speedIncrease() {
     rock.style.right = right
     GAME.appendChild(rock)
 
+<<<<<<< HEAD
     // if (GUY_SPEED < 5){
     //   setInterval(function() {
     //     return ROCK_SPEED+1
@@ -113,6 +127,11 @@ function speedIncrease() {
       if (stopMotion === false){
         rock.style.right = `${right += GUY_SPEED}px`;
         // console.log("speed",ROCK_SPEED)
+=======
+    function moveRock() {
+      if (stopMotion === false){
+        rock.style.right = `${right += ROCK_SPEED}px`;
+>>>>>>> master
 
         let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
         if (checkCollision(rock)){
@@ -128,66 +147,18 @@ function speedIncrease() {
           window.requestAnimationFrame(moveRock)
         }
       }else{
-        return
+        return // What are we returning?
       }
     }
-
     moveRock()
     ROCKS.push(rock)
     return rock
-
   }
 
-  function deleteAllRocks(){
-    for (const rock of ROCKS){
-      rock.remove();
-    }
-  }
-
-  // ENDLESS BACKGROUND BEGIN
-
-  function bgLoop() {
-    let bg = document.createElement('div');
-    bg.className = 'bg';
-    let img = document.createElement('img');
-    GAME.appendChild(bg);
-    GAME.appendChild(bg);
-    bg.style.right = `-${4778 - window.innerWidth}px`;
-    // bg.style.right = '-3184px';
-
-    function movebg() {
-      if (positionToInteger(bg.style.right) < 400){
-        if (positionToInteger(bg.style.right) === 0) {
-          let top = positionToInteger(bg.style.right) + 1
-          bg.style.right = `${top}px`
-          window.requestAnimationFrame(movebg);
-          bgLoop();
-        }else{
-          let top = positionToInteger(bg.style.right) + 1;
-          bg.style.right = `${top}px`;
-          window.requestAnimationFrame(movebg);
-        }
-      }else{
-        bg.remove()
-      }
-    }
-
-    movebg()
-    return bg
-
-  }
-  var scoreSubmit = document.getElementById('score-form')
-  scoreSubmit.addEventListener("submit", (e) => {
-    e.preventDefault()
-    let name = document.getElementById('score-input')
-    name.value
-    })
-
-  // ENDLESS BACKGROUND END
+//END of game movement
 
 
-  // END GAME
-
+//BEGIN End Game functions
   function endGame() {
     stopMotion = true;
     clearInterval(gameInterval)
@@ -197,7 +168,6 @@ function speedIncrease() {
     for(let i = 0; i < ROCKS.length; i++){
       ROCKS[i].remove()
     }
-    // alert("YOU LOSE")
     var modal = document.getElementById('myModal')
     var closeButton = document.getElementsByClassName("close")[0]
     modal.style.display = "block";
@@ -231,7 +201,33 @@ function speedIncrease() {
       })
     })
   }
+//END of game function
 
+//Supporting functions
+
+function deleteAllRocks(){
+  for (const rock of ROCKS){
+    rock.remove();
+  }
+}
+
+PAUSE.addEventListener('click', pauseGame)
+window.addEventListener('keydown', pauseGame);
+function pauseGame(e){
+  let action = e.target.dataset.pause
+  if (action === "pauseGame"){
+    alert("Game has been Paused \n Click okay to resume")
+  }
+  debugger;
+  if (e.keyCode ===13){
+    alert("Game has been Paused \n Click okay to resume")
+
+  }
+}
+//End of support functions
+
+
+//Dodger Movement functions
 
   function moveDodger(e) {
     let action = e.which
@@ -304,6 +300,9 @@ function speedIncrease() {
     })
   }
 
+//END Movement
+
+
   function updateScore(){
     let scoreNumber = document.getElementById("scorenumber");
     scoreNumber.innerText = score;
@@ -313,36 +312,56 @@ function speedIncrease() {
     return parseInt(p.split('px')[0]) || 0
   }
 
-  function start() {
-    window.addEventListener('keydown', moveDodger);
-    bgLoop();
-    OVERLAY.style.display = "none";
-    // PAUSE.style.display = "block"
-    // PAUSE.addEventListener('click',pauseHandler);
 
 
-    // START.style.display = 'none';
-    gameInterval = setInterval(function() {
-      createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
-    }, rockGenerateTime)
-    // rockSpeed = setInterval(function() {
-    //   debugger;
-    //   moveRock(speed)
-    //
-    // },5000)
-  }
 
-  function pauseHandler(e) {
-    pauseGame(e)
-  }
-
-function pauseGame(e){
-  let action = e.target.dataset.pause
-  if (action === "pauseGame"){
-    alert("Game has been Paused \n Click okay to resume")
-    // action = "gamePaused"
-  }
+// BACKGROUND functions
+function createBG(){
+  let bg = document.createElement("div");
+  bg.className = 'bg'
+  bg.style.right = '-100px';
+  GAME.appendChild(bg);
 }
+// ENDLESS BACKGROUND BEGIN
+
+function bgLoop() {
+  let bg = document.createElement('div');
+  bg.className = 'bg';
+  let img = document.createElement('img');
+  GAME.appendChild(bg);
+  GAME.appendChild(bg);
+  bg.style.right = `-${4778 - window.innerWidth}px`;
+  // bg.style.right = '-3184px';
+
+  function movebg() {
+    if (positionToInteger(bg.style.right) < 400){
+      if (positionToInteger(bg.style.right) === 0) {
+        let top = positionToInteger(bg.style.right) + 1
+        bg.style.right = `${top}px`
+        window.requestAnimationFrame(movebg);
+        bgLoop();
+      }else{
+        let top = positionToInteger(bg.style.right) + 1;
+        bg.style.right = `${top}px`;
+        window.requestAnimationFrame(movebg);
+      }
+    }else{
+      bg.remove()
+    }
+  }
+
+  movebg()
+  return bg
+
+}
+var scoreSubmit = document.getElementById('score-form')
+scoreSubmit.addEventListener("submit", (e) => {
+  e.preventDefault()
+  let name = document.getElementById('score-input')
+  name.value
+  })
+
+// ENDLESS BACKGROUND END
 
 
 function toggleTopScores(){
