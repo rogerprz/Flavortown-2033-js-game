@@ -1,19 +1,37 @@
 
-  const USERS_URL = 'http://localhost:3000/api/v1/users';
-  const DODGER = document.getElementById('dodger');
-  const GAME = document.getElementById('game');
-  const GAME_HEIGHT = 600;
-  const GAME_WIDTH = window.innerWidth;
-  const UP_ARROW = 38 ;// use e.which!
-  const DOWN_ARROW = 40; // use e.which!
-  const RIGHT_ARROW = 39;
-  const LEFT_ARROW = 37
-  const ROCKS = []
-  const START = document.getElementById('start')
-  const OVERLAY = document.getElementById("overlay")
-  const PAUSE = document.getElementById("pause")
-  const HIGH_SCORE = document.getElementById('high-scores')
-  let ROCK_SPEED = 2
+const USERS_URL = 'http://localhost:3000/api/v1/users';
+const DODGER = document.getElementById('dodger');
+const GAME = document.getElementById('game');
+const GAME_HEIGHT = 600;
+const GAME_WIDTH = window.innerWidth;
+const UP_ARROW = 38 ;// use e.which!
+const DOWN_ARROW = 40; // use e.which!
+const RIGHT_ARROW = 39;
+const LEFT_ARROW = 37
+const ROCKS = []
+const START = document.getElementById('start')
+const OVERLAY = document.getElementById("overlay")
+const PAUSE = document.getElementById("pause")
+const HIGH_SCORE = document.getElementById('high-scores')
+let random= function (min, max) {
+    return Math.floor(Math.random() * (max - min) ) + min;
+}
+let ROCK_SPEED = 2
+
+ROCK_SPEED = setInterval(speedIncrease, 3000)
+function speedIncrease() {
+  if (ROCK_SPEED<5){
+    ++ROCK_SPEED
+  }
+}
+// let ROCK_SPEED= 2
+
+// function one(ROCK_SPEED) {
+//    return ROCK_SPEED = ROCK_SPEED+1
+// }
+//
+// let upByOne = setInterval(one(ROCK_SPEED), 4000)
+
   // 20px for rock size
   //40 for dodger size
   // 10 margin change
@@ -87,12 +105,14 @@
     rock.style.right = right
     GAME.appendChild(rock)
 
+    // if (ROCK_SPEED < 5){
+    //   setInterval(function() {
+    //     return ROCK_SPEED+1
+    //   }, 4000)
+    // }
     function moveRock() {
-      setInterval(function () {
-        rock.style.right = `${right += ROCK_SPEED}px`;
-        ROCK_SPEED
-        return rock.style.right}, 5000)
-        console.log(ROCK_SPEED)
+      rock.style.right = `${right += ROCK_SPEED}px`;
+        console.log("speed",ROCK_SPEED)
 
       let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
       if (checkCollision(rock)){
@@ -228,7 +248,7 @@ function moveDodger(e) {
     window.requestAnimationFrame(function() {
       const top = positionToInteger(DODGER.style.top)
       if (top > 0){
-        DODGER.style.top = `${top-8}px`;
+        DODGER.style.top = `${top-15}px`;
       }
     })
   }
@@ -237,7 +257,7 @@ function moveDodger(e) {
     window.requestAnimationFrame(function(){
       const down = positionToInteger(DODGER.style.top)
       if (down < 496){
-        DODGER.style.top = `${down + 8}px`
+        DODGER.style.top = `${down + 15}px`
       }
     })
   }
@@ -287,10 +307,15 @@ function moveDodger(e) {
     bgLoop();
     OVERLAY.style.display = "none";
 
-    START.style.display = 'none';
+    // START.style.display = 'none';
     gameInterval = setInterval(function() {
       createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
     }, 1000)
+    // rockSpeed = setInterval(function() {
+    //   debugger;
+    //   moveRock(speed)
+    //
+    // },5000)
   }
 
   function pauseHandler(e) {
