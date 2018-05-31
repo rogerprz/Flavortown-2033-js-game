@@ -13,8 +13,14 @@ const UP_ARROW = 38 ;// use e.which!
 const DOWN_ARROW = 40; // use e.which!
 const RIGHT_ARROW = 39;
 const LEFT_ARROW = 37
-
-const ROCKS = []
+//Submit score end of game
+const modal = document.getElementById('myModal')
+const scoreSubmit = document.getElementById('score-form')
+const submitText = document.getElementById('score-text')
+const modalContent = document.getElementById('modal-content')
+//other
+let bg = document.createElement("div");
+let ROCKS = []
 let MECHA_SIZE=40
 let FIERI_SIZE= 30
 let ROCK_SPEED = 5
@@ -143,15 +149,13 @@ function speedIncrease() {
     for(let i = 0; i < ROCKS.length; i++){
       ROCKS[i].remove()
     }
-    var modal = document.getElementById('myModal')
     var closeButton = document.getElementsByClassName("close")[0]
     modal.style.display = "block";
+    scoreSubmit.style.display="block"
+    submitText.style.display="block"
     closeButton.onclick = function() {
       modal.style.display = "none";
     }
-    var scoreSubmit = document.getElementById('score-form')
-    var submitText = document.getElementById('score-text')
-    var modalContent = document.getElementById('modal-content')
     console.log(modalContent)
     scoreSubmit.addEventListener("submit", (e) => {
       e.preventDefault()
@@ -164,19 +168,41 @@ function speedIncrease() {
         {name: `${name.value}`,
         score: score})
       }).then(response => response.json()).then(json => console.log(json))
-      scoreSubmit.remove()
-      submitText.remove()
-      resetGameButton = document.createElement("button")
-      resetGameButton.innerHTML = "Play Again?"
-      modalContent.append(resetGameButton)
+      scoreSubmit.style.display="none"
+      submitText.style.display="none"
+      let playAgain = document.createElement("button")
+      playAgain.innerHTML = "Play Again?"
+      modalContent.append(playAgain)
 
-      resetGameButton.addEventListener("click", (r) => {
+      playAgain.addEventListener("click", (r) => {
         r.preventDefault()
-        debugger
+        playAgain.style.diplay="none"
+        resetGame()
       })
     })
   }
 //END of game function
+
+//RESET game
+function resetGame() {
+  OVERLAY.style.display = "block";
+  PAUSE.style.display="none"
+  SCORE_DISPLAY.style.display = "none"
+  modal.style.display="none"
+  stopMotion= false
+  score = 0
+  updateScore()
+  ROCKS= []
+  deleteAllRocks()
+  // stopBackground()
+  OVERLAY.addEventListener('click', function(e) {
+    start()
+
+  });
+}
+
+
+//
 
 //Supporting functions
 
@@ -193,7 +219,6 @@ function pauseGame(e){
   if (action === "pauseGame"){
     alert("Game has been Paused \n Click okay to resume")
   }
-  debugger;
   if (e.keyCode ===13){
     alert("Game has been Paused \n Click okay to resume")
 
@@ -292,7 +317,6 @@ function pauseGame(e){
 
 // BACKGROUND functions
 function createBG(){
-  let bg = document.createElement("div");
   bg.className = 'bg'
   bg.style.right = '-100px';
   GAME.appendChild(bg);
@@ -300,7 +324,6 @@ function createBG(){
 // ENDLESS BACKGROUND BEGIN
 
 function bgLoop() {
-  let bg = document.createElement('div');
   bg.className = 'bg';
   let img = document.createElement('img');
   GAME.appendChild(bg);
@@ -324,19 +347,21 @@ function bgLoop() {
       bg.remove()
     }
   }
-
   movebg()
   return bg
-
 }
-var scoreSubmit = document.getElementById('score-form')
+
+function stopBackground() {
+  bg.style.right = 600
+}
+
+
+// ENDLESS BACKGROUND END
 scoreSubmit.addEventListener("submit", (e) => {
   e.preventDefault()
   let name = document.getElementById('score-input')
   name.value
-  })
-
-// ENDLESS BACKGROUND END
+})
 
 
 function toggleTopScores(){
