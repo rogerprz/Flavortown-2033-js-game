@@ -93,19 +93,19 @@ function speedIncrease() {
     function moveRock() {
       if (stopMotion === false){
         rock.style.left = `${left -= ROCK_SPEED}px`;
-
         let rockLocation = rock.style.left.replace(/[^0-9.]/g, "");
+        // console.log(rockLocation)
+
         if (checkCollision(rock)){
           return endGame()
-        }
-        if (rockLocation > GAME_WIDTH-5){
+        }else if (rockLocation > 0){
+          window.requestAnimationFrame(moveRock)
+        }else{
+          console.log(`Goodbye, ${rock}.`)
           rock.remove();
           score += 10
           updateScore();
           ROCKS.shift();
-        }
-        else if (impactLocation < GAME_WIDTH){
-          window.requestAnimationFrame(moveRock)
         }
       }
     }
@@ -139,7 +139,6 @@ function speedIncrease() {
     }
 
     function movebg() {
-      console.log(bg.style.right)
       if (positionToInteger(bg.style.right) < GAME_WIDTH){
         let top = positionToInteger(bg.style.right) + 1
         bg.style.right = `${top}px`
@@ -148,7 +147,6 @@ function speedIncrease() {
           bgLoop(true);
         }
       }else{
-        console.log(`bg is disappearing at ${bg.style.right}`)
         bg.remove()
       }
     }
