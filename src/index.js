@@ -14,7 +14,10 @@ const UP_ARROW = 38 ;// use e.which!
 const DOWN_ARROW = 40; // use e.which!
 const RIGHT_ARROW = 39;
 const LEFT_ARROW = 37
-
+const modal = document.getElementById('myModal')
+const scoreSubmit = document.getElementById('score-form')
+const submitText = document.getElementById('score-text')
+const modalContent = document.getElementById('modal-content')
 const ROCKS = []
 let MECHA_SIZE =40
 let FIERI_SIZE = 30
@@ -26,7 +29,7 @@ let score = 0;
 var gameInterval = null;
 var additionalGuys = [];
 const impactLocation = GAME_WIDTH-FIERI_SIZE-MECHA_SIZE;
-
+let bg = document.createElement("div");
 const topScoreDisplay = document.getElementById("high-scores");
 topScoreDisplay.style.visibility = "hidden";
 const instructionsDisplay = document.getElementById("instructions");
@@ -175,14 +178,9 @@ function speedIncrease() {
     closeButton.onclick = function() {
       modal.style.display = "none";
     }
-<<<<<<< HEAD
+
     console.log(modalContent)
-=======
-    var scoreSubmit = document.getElementById('score-form')
-    var submitText = document.getElementById('score-text')
-    var modalContent = document.getElementById('modal-content')
-    // console.log(modalContent)
->>>>>>> joe_dev_two
+
     scoreSubmit.addEventListener("submit", (e) => {
       e.preventDefault()
       let name = document.getElementById('score-input')
@@ -242,11 +240,9 @@ function pauseGame(e){
   let action = e.target.dataset.pause
   if (action === "pauseGame"){
     alert("Game has been Paused \n Click okay to resume")
-<<<<<<< HEAD
+
   }
-=======
-  };
->>>>>>> joe_dev_two
+
   if (e.keyCode ===13){
     alert("Game has been Paused \n Click okay to resume")
 
