@@ -24,6 +24,15 @@ let score = 0;
 var gameInterval = null;
 const impactLocation = GAME_WIDTH-FIERI_SIZE-MECHA_SIZE;
 
+const topScoreDisplay = document.getElementById("high-scores");
+topScoreDisplay.style.visibility = "hidden";
+const instructionsDisplay = document.getElementById("instructions");
+instructionsDisplay.style.visibility = "hidden";
+
+instructionsDisplay.addEventListener("click", function(e){
+  toggleInstructions();
+})
+
 ROCK_SPEED = setInterval(speedIncrease, 10000)
 
 function speedIncrease() {
@@ -140,6 +149,9 @@ function speedIncrease() {
       modal.style.display = "none";
     }
     var scoreSubmit = document.getElementById('score-form')
+    var submitText = document.getElementById('score-text')
+    var modalContent = document.getElementById('modal-content')
+    console.log(modalContent)
     scoreSubmit.addEventListener("submit", (e) => {
       e.preventDefault()
       let name = document.getElementById('score-input')
@@ -151,6 +163,16 @@ function speedIncrease() {
         {name: `${name.value}`,
         score: score})
       }).then(response => response.json()).then(json => console.log(json))
+      scoreSubmit.remove()
+      submitText.remove()
+      resetGameButton = document.createElement("button")
+      resetGameButton.innerHTML = "Play Again?"
+      modalContent.append(resetGameButton)
+
+      resetGameButton.addEventListener("click", (r) => {
+        r.preventDefault()
+        debugger
+      })
     })
   }
 //END of game function
@@ -313,8 +335,22 @@ scoreSubmit.addEventListener("submit", (e) => {
 // ENDLESS BACKGROUND END
 
 
+function toggleTopScores(){
+  if (topScoreDisplay.style.visibility === "hidden"){
+    topScoreDisplay.style.visibility = "visible";
+  }else{
+    topScoreDisplay.style.visibility = "hidden";
+  }
+}
 
-//ICEBOX
+function toggleInstructions(){
+  if (instructionsDisplay.style.visibility === "hidden"){
+    instructionsDisplay.style.visibility = "visible";
+  }else{
+    instructionsDisplay.style.visibility = "hidden";
+  }
+}
+
   // cLog("top dodger",dodgerTopEdge)
   // cLog("bottom dodger",dodgerBottomEdge)
   // cLog("rock top",rockTopEdge)
