@@ -32,7 +32,7 @@ let score = 0;
 var gameInterval = null;
 var additionalGuys = [];
 const impactLocation = GAME_WIDTH-FIERI_SIZE-MECHA_SIZE;
-
+let bg = document.createElement("div");
 const topScoreDisplay = document.getElementById("high-scores");
 topScoreDisplay.style.visibility = "hidden";
 const instructionsDisplay = document.getElementById("instructions");
