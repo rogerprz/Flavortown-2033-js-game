@@ -17,7 +17,7 @@ let random= function (min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
 let ROCK_SPEED = 4
-let rockGenerateTime = 1000
+// let rockGenerateTime = 1100
 
 ROCK_SPEED = setInterval(speedIncrease, 10000)
 function speedIncrease() {
@@ -25,13 +25,15 @@ function speedIncrease() {
     ++ROCK_SPEED
   }
 }
-// rockGenerateTime = setInterval(reduceGenerateTime,30000)
-// function reduceGenerateTime() {
-//   if (rockGenerateTime<150){
-//     rockGenerateTime-=500
-//   }
-//
-// }
+rockGenerateTime = setInterval(reduceGenerateTime,30000)
+function reduceGenerateTime() {
+  debugger;
+  if (rockGenerateTime<100){
+    rockGenerateTime-=100
+    return rockGenerateTime
+  }
+
+}
 // let ROCK_SPEED= 2
 
 // function one(ROCK_SPEED) {
