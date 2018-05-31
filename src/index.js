@@ -22,6 +22,7 @@ let stopMotion = false;
 let rockGenerateTime = 1100
 let score = 0;
 var gameInterval = null;
+var additionalGuys = null;
 const impactLocation = GAME_WIDTH-FIERI_SIZE-MECHA_SIZE;
 
 const topScoreDisplay = document.getElementById("high-scores");
@@ -36,13 +37,15 @@ instructionsDisplay.addEventListener("click", function(e){
 let ROCK_SPEED = setInterval(speedIncrease, 10000)
 
 function speedIncrease() {
-  if (GUY_SPEED < 6 ) {
+  if (GUY_SPEED < 5 ) {
     console.log(`The speed is now ${GUY_SPEED}`)
-     return ++GUY_SPEED
+     ++GUY_SPEED
     }
-  else if (GUY_SPEED > 6 ) { ++GUY_SPEED;
-    console.log('it added another rock, i think?')
-      createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
+  else if (GUY_SPEED <14  ) { ++GUY_SPEED;
+      additionalGuys = setInterval(function() {
+          console.log('it added another rock, i think?')
+         createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20))) }, 1800)
+
     }
   }
 
@@ -188,6 +191,7 @@ function speedIncrease() {
   function endGame() {
     stopMotion = true;
     clearInterval(gameInterval)
+    clearInterval(additionalGuys)
     ROCK_SPEED=0
     window.removeEventListener('keydown', moveDodger)
     for(let i = 0; i < ROCKS.length; i++){
