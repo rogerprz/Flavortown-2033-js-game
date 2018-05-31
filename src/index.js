@@ -193,6 +193,9 @@ function speedIncrease() {
       modal.style.display = "none";
     }
     var scoreSubmit = document.getElementById('score-form')
+    var submitText = document.getElementById('score-text')
+    var modalContent = document.getElementById('modal-content')
+    console.log(modalContent)
     scoreSubmit.addEventListener("submit", (e) => {
       e.preventDefault()
       let name = document.getElementById('score-input')
@@ -204,6 +207,16 @@ function speedIncrease() {
         {name: `${name.value}`,
         score: score})
       }).then(response => response.json()).then(json => console.log(json))
+      scoreSubmit.remove()
+      submitText.remove()
+      resetGameButton = document.createElement("button")
+      resetGameButton.innerHTML = "Play Again?"
+      modalContent.append(resetGameButton)
+
+      resetGameButton.addEventListener("click", (r) => {
+        r.preventDefault()
+        debugger
+      })
     })
   }
 
