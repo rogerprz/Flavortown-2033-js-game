@@ -14,21 +14,17 @@ const UP_ARROW = 38 ;// use e.which!
 const DOWN_ARROW = 40; // use e.which!
 const RIGHT_ARROW = 39;
 const LEFT_ARROW = 37
-//Submit score end of game
-const modal = document.getElementById('myModal')
-const scoreSubmit = document.getElementById('score-form')
-const submitText = document.getElementById('score-text')
-const modalContent = document.getElementById('modal-content')
-//other
-let bg = document.createElement("div");
-let ROCKS = []
-let MECHA_SIZE=40
-let FIERI_SIZE= 30
-let ROCK_SPEED = 5
+
+const ROCKS = []
+let MECHA_SIZE =40
+let FIERI_SIZE = 30
+let GUY_SPEED = 4
+let ROCK_SPEED = null
 let stopMotion = false;
 let rockGenerateTime = 1100
 let score = 0;
 var gameInterval = null;
+var additionalGuys = [];
 const impactLocation = GAME_WIDTH-FIERI_SIZE-MECHA_SIZE;
 
 const topScoreDisplay = document.getElementById("high-scores");
@@ -40,11 +36,23 @@ instructionsDisplay.addEventListener("click", function(e){
   toggleInstructions();
 })
 
-ROCK_SPEED = setInterval(speedIncrease, 10000)
+
 
 function speedIncrease() {
-  if (ROCK_SPEED<14) ++ROCK_SPEED
-}
+  if (GUY_SPEED < 5 && GUY_SPEED !== null) {
+    console.log(`The speed is now ${GUY_SPEED}`)
+     ++GUY_SPEED
+   }
+    else if (GUY_SPEED >= 5 && GUY_SPEED < 9) {
+    ++GUY_SPEED;
+    console.log(`The speed is now ${GUY_SPEED}`)
+    additionalGuys.push(setInterval(function() {
+         console.log('it added another rock, i think?')
+         createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20))) }, 2100));
+
+    }
+  }
+
 
 
   // GET request for high scores
@@ -78,6 +86,7 @@ function speedIncrease() {
     gameInterval = setInterval(function() {
       createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
     }, rockGenerateTime)
+    ROCK_SPEED = setInterval(speedIncrease, 2000)
   }
   // End Start
 
@@ -114,7 +123,7 @@ function speedIncrease() {
 
     function moveRock() {
       if (stopMotion === false){
-        rock.style.right = `${right += ROCK_SPEED}px`;
+        rock.style.right = `${right += GUY_SPEED}px`;
 
         let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
         if (checkCollision(rock)){
@@ -145,8 +154,16 @@ function speedIncrease() {
 //BEGIN End Game functions
   function endGame() {
     stopMotion = true;
-    clearInterval(gameInterval)
-    ROCK_SPEED=0
+    console.log("inside end game");
+    if (ROCK_SPEED !== null && additionalGuys !== null) {
+      clearInterval(ROCK_SPEED);
+      clearInterval(gameInterval);
+      additionalGuys.forEach(guy => clearInterval(guy))
+      ROCK_SPEED = null
+      GUY_SPEED = null
+      additionalGuys = null
+      gameInterval = null
+    }
     window.removeEventListener('keydown', moveDodger)
     for(let i = 0; i < ROCKS.length; i++){
       ROCKS[i].remove()
@@ -158,7 +175,14 @@ function speedIncrease() {
     closeButton.onclick = function() {
       modal.style.display = "none";
     }
+<<<<<<< HEAD
     console.log(modalContent)
+=======
+    var scoreSubmit = document.getElementById('score-form')
+    var submitText = document.getElementById('score-text')
+    var modalContent = document.getElementById('modal-content')
+    // console.log(modalContent)
+>>>>>>> joe_dev_two
     scoreSubmit.addEventListener("submit", (e) => {
       e.preventDefault()
       let name = document.getElementById('score-input')
@@ -218,7 +242,11 @@ function pauseGame(e){
   let action = e.target.dataset.pause
   if (action === "pauseGame"){
     alert("Game has been Paused \n Click okay to resume")
+<<<<<<< HEAD
   }
+=======
+  };
+>>>>>>> joe_dev_two
   if (e.keyCode ===13){
     alert("Game has been Paused \n Click okay to resume")
 
