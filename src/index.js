@@ -13,10 +13,11 @@ const START = document.getElementById('start')
 const OVERLAY = document.getElementById("overlay")
 const PAUSE = document.getElementById("pause")
 const HIGH_SCORE = document.getElementById('high-scores')
-let random= function (min, max) {
+let random = function (min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
 let ROCK_SPEED = 2
+let stopMotion = false;
 
 ROCK_SPEED = setInterval(speedIncrease, 3000)
 function speedIncrease() {
@@ -40,7 +41,7 @@ function speedIncrease() {
   let score = 0;
 
   DODGER.addEventListener("click", function(e){
-    console.log(DODGER.style.top);
+    // ADD SOME TESTING SHITE
   })
 
   // GET request for high scores
@@ -107,28 +108,44 @@ function speedIncrease() {
     //     return ROCK_SPEED+1
     //   }, 4000)
     // }
-    function moveRock() {
-      rock.style.right = `${right += ROCK_SPEED}px`;
-        console.log("speed",ROCK_SPEED)
 
-      let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
-      if (checkCollision(rock)){
-        return endGame()
-      }
-      if (rockLocation > GAME_WIDTH-5){
-        rock.remove();
-        ++score
-        updateScore();
-      }
-      else if (impactLocation < GAME_WIDTH){
-        window.requestAnimationFrame(moveRock)
+    function moveRock() {
+      if (stopMotion === false){
+        rock.style.right = `${right += ROCK_SPEED}px`;
+        // console.log("speed",ROCK_SPEED)
+
+        let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
+        if (checkCollision(rock)){
+          return endGame()
+        }
+        if (rockLocation > GAME_WIDTH-5){
+          rock.remove();
+          ++score
+          updateScore();
+        }
+        else if (impactLocation < GAME_WIDTH){
+          window.requestAnimationFrame(moveRock)
+        }
+      }else{
+        return
       }
     }
+
+    rock.addEventListener("mouseover", function(e){
+      stopMotion = true;
+      e.target.remove();
+    })
 
     moveRock()
     ROCKS.push(rock)
     return rock
 
+  }
+
+  function deleteAllRocks(){
+    for (const rock of ROCKS){
+      rock.remove();
+    }
   }
 
   // ENDLESS BACKGROUND BEGIN
@@ -176,6 +193,7 @@ function speedIncrease() {
   // END GAME
 
   function endGame() {
+    stopMotion = true;
     clearInterval(gameInterval)
     window.removeEventListener('keydown', moveDodger)
     for(let i = 0; i < ROCKS.length; i++){

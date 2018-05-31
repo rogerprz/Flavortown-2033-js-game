@@ -118,7 +118,10 @@ body{
   background-repeat: no-repeat;
   /* background: fuchsia; */
   position: absolute;
+}
 
+.rock:hover{
+  cursor: pointer;
 }
 
 .rock:before {
