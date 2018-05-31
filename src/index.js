@@ -47,7 +47,7 @@ function speedIncrease() {
     console.log(`The speed is now ${GUY_SPEED}`)
     additionalGuys.push(setInterval(function() {
          console.log('it added another rock, i think?')
-         createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20))) }, 1800));
+         createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20))) }, 2100));
 
     }
   }
