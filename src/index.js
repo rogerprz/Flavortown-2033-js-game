@@ -27,9 +27,7 @@ const impactLocation = GAME_WIDTH-FIERI_SIZE-MECHA_SIZE;
 ROCK_SPEED = setInterval(speedIncrease, 10000)
 
 function speedIncrease() {
-  if (ROCK_SPEED<14){
-    ++ROCK_SPEED
-  }
+  if (ROCK_SPEED<14) ++ROCK_SPEED
 }
 
 
@@ -37,23 +35,16 @@ function speedIncrease() {
   fetch(USERS_URL).then(response => response.json()).then(json=> highScore(json))
 
   function highScore (array) {
-    let sortedHalfwayThere = array.sort(function (a,b) {
-      return a.scores[0].score - b.scores[0].score
+    let sortScores = [...array].sort((a,b)=>{
+      return b.scores[0].score - a.scores[0].score;
     })
-    let sortedFinal = sortedHalfwayThere.reverse()
-    // let i = 0
-    // while (i < 2) {
-    sortedFinal.forEach(obj => {
-
+    for (let i =0;i<5;i++){
       tr = document.createElement('tr')
-      tr.innerHTML = `<th>${obj.name}</th>
+      let obj =sortScores[i]
+      tr.innerHTML = `<th>${obj.name} </th>
       <th>${obj.scores[0].score}</th>`
       HIGH_SCORE.append(tr)
-
-    })
-    // i++
-  // }
-
+    }
   }
 
 
