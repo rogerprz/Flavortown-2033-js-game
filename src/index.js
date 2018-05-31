@@ -16,24 +16,23 @@ const HIGH_SCORE = document.getElementById('high-scores')
 let random= function (min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
-let ROCK_SPEED = 4
-// let rockGenerateTime = 1100
+let ROCK_SPEED = 5
+let rockGenerateTime = 1100
 
 ROCK_SPEED = setInterval(speedIncrease, 10000)
 function speedIncrease() {
-  if (ROCK_SPEED<10){
+  if (ROCK_SPEED<14){
     ++ROCK_SPEED
   }
 }
-rockGenerateTime = setInterval(reduceGenerateTime,30000)
-function reduceGenerateTime() {
-  debugger;
-  if (rockGenerateTime<100){
-    rockGenerateTime-=100
-    return rockGenerateTime
-  }
-
-}
+// rockGenerateTime = setInterval(reduceGenerateTime,30000)
+// function reduceGenerateTime() {
+//   if (rockGenerateTime>100){
+//     rockGenerateTime-=100
+//     return rockGenerateTime
+//   }
+//
+// }
 // let ROCK_SPEED= 2
 
 // function one(ROCK_SPEED) {
@@ -50,7 +49,6 @@ function reduceGenerateTime() {
   let score = 0;
 
   DODGER.addEventListener("click", function(e){
-    console.log(DODGER.style.top);
   })
 
   // GET request for high scores
@@ -122,7 +120,6 @@ function reduceGenerateTime() {
     // }
     function moveRock() {
       rock.style.right = `${right += ROCK_SPEED}px`;
-        console.log("speed",ROCK_SPEED)
 
       let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
       if (checkCollision(rock)){
@@ -177,7 +174,6 @@ function reduceGenerateTime() {
 
   var scoreSubmit = document.getElementById('score-form')
   scoreSubmit.addEventListener("submit", (e) => {
-    console.log("submit event triggered");
     e.preventDefault()
     let name = document.getElementById('score-input')
 
@@ -201,6 +197,7 @@ function moveDodger(e) {
 
 
   function endGame() {
+    debugger;
     clearInterval(gameInterval)
     ROCK_SPEED=0
     window.removeEventListener('keydown', moveDodger)
