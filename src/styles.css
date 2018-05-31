@@ -191,3 +191,29 @@ body{
     text-decoration: none;
     cursor: pointer;
 }
+
+.instructions {
+  : center;
+}
+
+.instruction {
+  color: #fefefe
+}
+
+.instruction-ship {
+    padding-left: 50px;
+    padding-bottom: 30px;
+    height: 100px;
+    width: 65px;
+  }
+
+.keys {
+  width: 110px;
+  padding-left: 20px;
+}
+
+.guy-instructions {
+  padding-top: 20px;
+  width: 80px;
+
+}
