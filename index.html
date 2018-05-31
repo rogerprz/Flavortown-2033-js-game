@@ -7,12 +7,11 @@
   </head>
 
   <body>
-    <a id="start" href="javascript:start()">
     <div id="game">
-      <div id="overlay" style="">
+      <div id="overlay">
         <div>
           <div id="logo"></div>
-          <h1>START</h1>
+          <h1><a id="start" href="javascript:start()">START</a></h1>
 
           <h3>TOP SCORES</h3>
           <table id='high-scores'>
@@ -25,7 +24,6 @@
 
         </div>
       </div>
-      </a>
       <div class="pauseBtn" id="pause" data-pause="pauseGame">
 
       </div>
@@ -38,7 +36,6 @@
 
     <!-- The Modal -->
       <div id="myModal" class="modal">
-
         <!-- Modal content -->
         <div class="modal-content">
           <img class="close"src="http://replygif.net/i/1483.gif" alt="">
@@ -50,10 +47,9 @@
             <button type="submit">Submit Score</button>
           </form>
         </div>
-
       </div>
 
-      <div id="instructions" class="instructions">
+      <div id="instructions">
         <table class="instruction">
           <tr>
             <th align="center">How to Play</th>
@@ -71,8 +67,8 @@
             <td align="left">Avoid:</td>
             <td><img class="guy-instructions" src="src/guy.png" alt=""></td>
           </tr>
-
       </div>
+      
     <script src="src/index.js"></script>
   </body>
 </html>
