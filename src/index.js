@@ -217,10 +217,17 @@ function speedIncrease() {
     scoreSubmit.addEventListener("submit", (e) => {
       e.preventDefault()
       let name = document.getElementById('score-input')
-      name.value
-      debugger
+
+    fetch(USERS_URL, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(
+       {name: `${name.value}`,
+       score: score})
+     }).then(response => response.json()).then(json => console.log(json))
       })
-  }
+      }
+
 
   function moveDodger(e) {
     let action = e.which
