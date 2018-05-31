@@ -16,11 +16,11 @@ const HIGH_SCORE = document.getElementById('high-scores')
 let random= function (min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
-let ROCK_SPEED = 2
+let ROCK_SPEED = 4
 
-ROCK_SPEED = setInterval(speedIncrease, 3000)
+ROCK_SPEED = setInterval(speedIncrease, 10000)
 function speedIncrease() {
-  if (ROCK_SPEED<5){
+  if (ROCK_SPEED<10){
     ++ROCK_SPEED
   }
 }
@@ -120,7 +120,7 @@ function speedIncrease() {
       }
       if (rockLocation > GAME_WIDTH-5){
         rock.remove();
-        ++score
+        score += 10
         updateScore();
       }
       else if (impactLocation < GAME_WIDTH){
