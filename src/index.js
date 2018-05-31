@@ -7,6 +7,7 @@ const OVERLAY = document.getElementById("overlay")
 const PAUSE = document.getElementById("pause")
 const HIGH_SCORE = document.getElementById('high-scores')
 const SCORE_DISPLAY = document.getElementById("score")
+const playAgain = document.getElementById("playAgain")
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = window.innerWidth;
 const UP_ARROW = 38 ;// use e.which!
@@ -128,7 +129,8 @@ function speedIncrease() {
         else if (impactLocation < GAME_WIDTH){
           window.requestAnimationFrame(moveRock)
         }
-      }else{
+      }
+      else{
         return // What are we returning?
       }
     }
@@ -170,13 +172,11 @@ function speedIncrease() {
       }).then(response => response.json()).then(json => console.log(json))
       scoreSubmit.style.display="none"
       submitText.style.display="none"
-      let playAgain = document.createElement("button")
-      playAgain.innerHTML = "Play Again?"
-      modalContent.append(playAgain)
+      playAgain.style.display="block"
 
       playAgain.addEventListener("click", (r) => {
         r.preventDefault()
-        playAgain.style.diplay="none"
+        playAgain.style.display= "none"
         resetGame()
       })
     })
