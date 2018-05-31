@@ -2,23 +2,27 @@
 const USERS_URL = 'http://localhost:3000/api/v1/users';
 const DODGER = document.getElementById('dodger');
 const GAME = document.getElementById('game');
+const START = document.getElementById('start')
+const OVERLAY = document.getElementById("overlay")
+const PAUSE = document.getElementById("pause")
+const HIGH_SCORE = document.getElementById('high-scores')
+
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = window.innerWidth;
 const UP_ARROW = 38 ;// use e.which!
 const DOWN_ARROW = 40; // use e.which!
 const RIGHT_ARROW = 39;
 const LEFT_ARROW = 37
+
 const ROCKS = []
-const START = document.getElementById('start')
-const OVERLAY = document.getElementById("overlay")
-const PAUSE = document.getElementById("pause")
-const HIGH_SCORE = document.getElementById('high-scores')
-let random = function (min, max) {
-    return Math.floor(Math.random() * (max - min) ) + min;
-}
-let ROCK_SPEED = 4
+let MECHA_SIZE=40
+let FIERI_SIZE= 30
+let ROCK_SPEED = 5
 let stopMotion = false;
 let rockGenerateTime = 1100
+let score = 0;
+var gameInterval = null;
+const impactLocation = GAME_WIDTH-FIERI_SIZE-MECHA_SIZE;
 
 ROCK_SPEED = setInterval(speedIncrease, 10000)
 
@@ -28,22 +32,6 @@ function speedIncrease() {
   }
 }
 
-// function one(ROCK_SPEED) {
-//    return ROCK_SPEED = ROCK_SPEED+1
-// }
-//
-// let upByOne = setInterval(one(ROCK_SPEED), 4000)
-
-  // 20px for rock size
-  //40 for dodger size
-  // 10 margin change
-  const impactLocation = GAME_WIDTH-30-40
-  var gameInterval = null;
-  let score = 0;
-
-  DODGER.addEventListener("click", function(e){
-    debugger;
-  })
 
   // GET request for high scores
   fetch(USERS_URL).then(response => response.json()).then(json=> highScore(json))
