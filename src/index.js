@@ -24,11 +24,13 @@ let bg = document.createElement("div");
 let ROCKS = []
 let MECHA_SIZE=40
 let FIERI_SIZE= 30
+let GUY_SPEED = 4
 let ROCK_SPEED = 5
 let stopMotion = false;
 let rockGenerateTime = 1100
 let score = 0;
 var gameInterval = null;
+var additionalGuys = [];
 const impactLocation = GAME_WIDTH-FIERI_SIZE-MECHA_SIZE;
 
 const topScoreDisplay = document.getElementById("high-scores");
@@ -40,11 +42,23 @@ instructionsDisplay.addEventListener("click", function(e){
   toggleInstructions();
 })
 
-ROCK_SPEED = setInterval(speedIncrease, 10000)
+
 
 function speedIncrease() {
-  if (ROCK_SPEED<14) ++ROCK_SPEED
-}
+  if (GUY_SPEED < 5 && GUY_SPEED !== null) {
+    console.log(`The speed is now ${GUY_SPEED}`)
+     ++GUY_SPEED
+   }
+    else if (GUY_SPEED >= 5 && GUY_SPEED < 9) {
+    ++GUY_SPEED;
+    console.log(`The speed is now ${GUY_SPEED}`)
+    additionalGuys.push(setInterval(function() {
+         console.log('it added another rock, i think?')
+         createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20))) }, 2100));
+
+    }
+  }
+
 
 
   // GET request for high scores
@@ -78,6 +92,7 @@ function speedIncrease() {
     gameInterval = setInterval(function() {
       createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
     }, rockGenerateTime)
+    ROCK_SPEED = setInterval(speedIncrease, 2000)
   }
   // End Start
 
@@ -114,7 +129,7 @@ function speedIncrease() {
 
     function moveRock() {
       if (stopMotion === false){
-        rock.style.right = `${right += ROCK_SPEED}px`;
+        rock.style.right = `${right += GUY_SPEED}px`;
 
         let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
         if (checkCollision(rock)){
@@ -145,8 +160,16 @@ function speedIncrease() {
 //BEGIN End Game functions
   function endGame() {
     stopMotion = true;
-    clearInterval(gameInterval)
-    ROCK_SPEED=0
+    console.log("inside end game");
+    if (ROCK_SPEED !== null && additionalGuys !== null) {
+      clearInterval(ROCK_SPEED);
+      clearInterval(gameInterval);
+      additionalGuys.forEach(guy => clearInterval(guy))
+      ROCK_SPEED = null
+      GUY_SPEED = null
+      additionalGuys = null
+      gameInterval = null
+    }
     window.removeEventListener('keydown', moveDodger)
     for(let i = 0; i < ROCKS.length; i++){
       ROCKS[i].remove()
