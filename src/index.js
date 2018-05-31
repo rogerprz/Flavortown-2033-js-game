@@ -2,73 +2,66 @@
 const USERS_URL = 'http://localhost:3000/api/v1/users';
 const DODGER = document.getElementById('dodger');
 const GAME = document.getElementById('game');
+const START = document.getElementById('start')
+const OVERLAY = document.getElementById("overlay")
+const PAUSE = document.getElementById("pause")
+const HIGH_SCORE = document.getElementById('high-scores')
+
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = window.innerWidth;
 const UP_ARROW = 38 ;// use e.which!
 const DOWN_ARROW = 40; // use e.which!
 const RIGHT_ARROW = 39;
 const LEFT_ARROW = 37
+
 const ROCKS = []
-const START = document.getElementById('start')
-const OVERLAY = document.getElementById("overlay")
-const PAUSE = document.getElementById("pause")
-const HIGH_SCORE = document.getElementById('high-scores')
-let random= function (min, max) {
-    return Math.floor(Math.random() * (max - min) ) + min;
-}
-let ROCK_SPEED = 4
-// let rockGenerateTime = 1100
+let MECHA_SIZE=40
+let FIERI_SIZE= 30
+let GUY_SPEED = 5
+let stopMotion = false;
+let rockGenerateTime = 1100
+let score = 0;
+var gameInterval = null;
+const impactLocation = GAME_WIDTH-FIERI_SIZE-MECHA_SIZE;
 
-ROCK_SPEED = setInterval(speedIncrease, 10000)
+const topScoreDisplay = document.getElementById("high-scores");
+topScoreDisplay.style.visibility = "hidden";
+const instructionsDisplay = document.getElementById("instructions");
+instructionsDisplay.style.visibility = "hidden";
+
+instructionsDisplay.addEventListener("click", function(e){
+  toggleInstructions();
+})
+
+let ROCK_SPEED = setInterval(speedIncrease, 10000)
+
 function speedIncrease() {
-  if (ROCK_SPEED<10){
-    ++ROCK_SPEED
-  }
-}
-rockGenerateTime = setInterval(reduceGenerateTime,30000)
-function reduceGenerateTime() {
-  debugger;
-  if (rockGenerateTime<100){
-    rockGenerateTime-=100
-    return rockGenerateTime
+  if (GUY_SPEED < 6 ) {
+    console.log(`The speed is now ${GUY_SPEED}`)
+     return ++GUY_SPEED
+    }
+  else if (GUY_SPEED > 6 ) { ++GUY_SPEED;
+    console.log('it added another rock, i think?')
+      createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
+    }
   }
 
-}
-// let ROCK_SPEED= 2
 
-// function one(ROCK_SPEED) {
-//    return ROCK_SPEED = ROCK_SPEED+1
-// }
-//
-// let upByOne = setInterval(one(ROCK_SPEED), 4000)
-
-  // 20px for rock size
-  //40 for dodger size
-  // 10 margin change
-  const impactLocation = GAME_WIDTH-30-40;
-  var gameInterval = null;
-  let score = 0;
-
-  DODGER.addEventListener("click", function(e){
-    console.log(DODGER.style.top);
-  })
 
   // GET request for high scores
   fetch(USERS_URL).then(response => response.json()).then(json=> highScore(json))
 
   function highScore (array) {
-    let sortedHalfwayThere = array.sort(function (a,b) {
-      return a.scores[0].score - b.scores[0].score
+    let sortScores = [...array].sort((a,b)=>{
+      return b.scores[0].score - a.scores[0].score;
     })
-    let sortedFinal = sortedHalfwayThere.reverse()
-    sortedFinal.forEach(obj =>{
-
+    for (let i =0;i<5;i++){
       tr = document.createElement('tr')
-      tr.innerHTML = `<th>${obj.name}</th>
+      let obj =sortScores[i]
+      tr.innerHTML = `<th>${obj.name} </th>
       <th>${obj.scores[0].score}</th>`
       HIGH_SCORE.append(tr)
-
-    })
+    }
   }
 
 
@@ -85,17 +78,10 @@ function reduceGenerateTime() {
     rock.style.right = right
     GAME.appendChild(rock)
     if (right>impactLocation-65){
-      // DODGER INFORMATION
-      let dodgerTopEdge = positionToInteger(DODGER.style.top);
-      let dodgerBottomEdge = positionToInteger(DODGER.style.top) + 100;
-      let dodgerLeftEdge = positionToInteger(DODGER.style.left);
-      let dodgerRightEdge = positionToInteger(DODGER.style.left + 65);
-
-      // ROCK INFORMATION
-      let rockTopEdge = positionToInteger(rock.style.top);
-      let rockBottomEdge = positionToInteger(rock.style.top) + 40;
-      let rockLeftEdge = positionToInteger(rock.style.left);
-      let rockRightEdge = positionToInteger(rock.style.left + 40)
+      const dodgerTopEdge = positionToInteger(DODGER.style.top);
+      const rockTopEdge = positionToInteger(rock.style.top);
+      const dodgerBottomEdge = positionToInteger(DODGER.style.top) + 65;
+      const rockBottomEdge = positionToInteger(rock.style.top) + 30;
 
       return (
         (rockTopEdge <= dodgerTopEdge && rockBottomEdge >= dodgerTopEdge) ||
@@ -103,7 +89,6 @@ function reduceGenerateTime() {
         (rockTopEdge <= dodgerBottomEdge && rockBottomEdge >= dodgerBottomEdge)
         )
       }
-
   }
 
   function createRock(x) {
@@ -115,32 +100,45 @@ function reduceGenerateTime() {
     rock.style.right = right
     GAME.appendChild(rock)
 
-    // if (ROCK_SPEED < 5){
+    // if (GUY_SPEED < 5){
     //   setInterval(function() {
     //     return ROCK_SPEED+1
     //   }, 4000)
     // }
-    function moveRock() {
-      rock.style.right = `${right += ROCK_SPEED}px`;
-        console.log("speed",ROCK_SPEED)
 
-      let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
-      if (checkCollision(rock)){
-        return endGame()
-      }
-      if (rockLocation > GAME_WIDTH-5){
-        rock.remove();
-        score += 10
-        updateScore();
-      }
-      else if (impactLocation < GAME_WIDTH){
-        window.requestAnimationFrame(moveRock)
+    function moveRock() {
+      if (stopMotion === false){
+        rock.style.right = `${right += GUY_SPEED}px`;
+        // console.log("speed",ROCK_SPEED)
+
+        let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
+        if (checkCollision(rock)){
+          return endGame()
+        }
+        if (rockLocation > GAME_WIDTH-5){
+          rock.remove();
+          score += 10
+          updateScore();
+          ROCKS.shift();
+        }
+        else if (impactLocation < GAME_WIDTH){
+          window.requestAnimationFrame(moveRock)
+        }
+      }else{
+        return
       }
     }
+
     moveRock()
     ROCKS.push(rock)
     return rock
 
+  }
+
+  function deleteAllRocks(){
+    for (const rock of ROCKS){
+      rock.remove();
+    }
   }
 
   // ENDLESS BACKGROUND BEGIN
@@ -161,46 +159,34 @@ function reduceGenerateTime() {
           bg.style.right = `${top}px`
           window.requestAnimationFrame(movebg);
           bgLoop();
-        } else {
+        }else{
           let top = positionToInteger(bg.style.right) + 1;
           bg.style.right = `${top}px`;
           window.requestAnimationFrame(movebg);
         }
-      } else{
+      }else{
         bg.remove()
       }
     }
 
     movebg()
     return bg
-  }
 
+  }
   var scoreSubmit = document.getElementById('score-form')
   scoreSubmit.addEventListener("submit", (e) => {
-    console.log("submit event triggered");
     e.preventDefault()
     let name = document.getElementById('score-input')
-
+    name.value
     })
 
   // ENDLESS BACKGROUND END
 
-function moveDodger(e) {
-  let action = e.which
-   if (action === UP_ARROW){
-     moveDodgerUp()
-     e.preventDefault()
-     e.stopPropagation()
-   }
-   if (action === DOWN_ARROW){
-     moveDodgerDown()
-     e.preventDefault()
-     e.stopPropagation()
-   }
-}
 
+  // END GAME
 
   function endGame() {
+    stopMotion = true;
     clearInterval(gameInterval)
     ROCK_SPEED=0
     window.removeEventListener('keydown', moveDodger)
@@ -215,21 +201,33 @@ function moveDodger(e) {
       modal.style.display = "none";
     }
     var scoreSubmit = document.getElementById('score-form')
+    var submitText = document.getElementById('score-text')
+    var modalContent = document.getElementById('modal-content')
+    console.log(modalContent)
     scoreSubmit.addEventListener("submit", (e) => {
       e.preventDefault()
       let name = document.getElementById('score-input')
-      let score = document.getElementById('scorenumber')
-    // name.value
 
-    fetch(USERS_URL, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(
-       {name: `${name.value}`,
-       score: parseInt(score.innerHTML) })
-     }).then(response => response.json()).then(json => console.log(json))
+      fetch(USERS_URL, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(
+        {name: `${name.value}`,
+        score: score})
+      }).then(response => response.json()).then(json => console.log(json))
+      scoreSubmit.remove()
+      submitText.remove()
+      resetGameButton = document.createElement("button")
+      resetGameButton.innerHTML = "Play Again?"
+      modalContent.append(resetGameButton)
+
+      resetGameButton.addEventListener("click", (r) => {
+        r.preventDefault()
+        debugger
       })
+    })
   }
+
 
   function moveDodger(e) {
     let action = e.which
@@ -280,8 +278,7 @@ function moveDodger(e) {
         if (left < GAME_WIDTH){
           DODGER.style.left = `${left+8}px`;
         }
-      }
-      else{
+      }else{
         DODGER.style.left = `${25+8}px`;
       }
     })
@@ -294,10 +291,9 @@ function moveDodger(e) {
         if (left > 25){
           DODGER.style.left = `${left-8}px`;
         }
-      }
-      else{
+      }else{
         DODGER.style.left = `${25}px`;
-        }
+      }
       if (left > 25){
         DODGER.style.left = `${left-8}px`;
       }
@@ -317,6 +313,9 @@ function moveDodger(e) {
     window.addEventListener('keydown', moveDodger);
     bgLoop();
     OVERLAY.style.display = "none";
+    // PAUSE.style.display = "block"
+    // PAUSE.addEventListener('click',pauseHandler);
+
 
     // START.style.display = 'none';
     gameInterval = setInterval(function() {
@@ -337,5 +336,32 @@ function pauseGame(e){
   let action = e.target.dataset.pause
   if (action === "pauseGame"){
     alert("Game has been Paused \n Click okay to resume")
+    // action = "gamePaused"
   }
 }
+
+
+function toggleTopScores(){
+  if (topScoreDisplay.style.visibility === "hidden"){
+    topScoreDisplay.style.visibility = "visible";
+  }else{
+    topScoreDisplay.style.visibility = "hidden";
+  }
+}
+
+function toggleInstructions(){
+  if (instructionsDisplay.style.visibility === "hidden"){
+    instructionsDisplay.style.visibility = "visible";
+  }else{
+    instructionsDisplay.style.visibility = "hidden";
+  }
+}
+
+  // cLog("top dodger",dodgerTopEdge)
+  // cLog("bottom dodger",dodgerBottomEdge)
+  // cLog("rock top",rockTopEdge)
+  // cLog("rock Bottom",rockBottomEdge)
+  // cLog("first", (rockTopEdge <= dodgerTopEdge && rockBottomEdge >= dodgerTopEdge))
+  // cLog("Second", (rockTopEdge >= dodgerTopEdge && rockBottomEdge <= dodgerBottomEdge))
+  //     cLog("third",(rockTopEdge <= dodgerBottomEdge && rockBottomEdge >= dodgerBottomEdge))
+// })
