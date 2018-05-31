@@ -186,14 +186,17 @@ function deleteAllRocks(){
   }
 }
 
-function pauseHandler(e) {
-  pauseGame(e)
-}
-
+PAUSE.addEventListener('click', pauseGame)
+window.addEventListener('keydown', pauseGame);
 function pauseGame(e){
   let action = e.target.dataset.pause
   if (action === "pauseGame"){
     alert("Game has been Paused \n Click okay to resume")
+  }
+  debugger;
+  if (e.keyCode ===13){
+    alert("Game has been Paused \n Click okay to resume")
+
   }
 }
 //End of support functions
