@@ -16,16 +16,27 @@ const HIGH_SCORE = document.getElementById('high-scores')
 let random = function (min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
-let ROCK_SPEED = 2
+let ROCK_SPEED = 4
 let stopMotion = false;
+let rockGenerateTime = 1100
 
-ROCK_SPEED = setInterval(speedIncrease, 3000)
+ROCK_SPEED = setInterval(speedIncrease, 10000)
+
 function speedIncrease() {
-  if (ROCK_SPEED<5){
+  if (ROCK_SPEED<10){
     ++ROCK_SPEED
   }
 }
-// let ROCK_SPEED= 2
+
+// rockGenerateTime = setInterval(reduceGenerateTime,30000)
+
+// function reduceGenerateTime() {
+//   debugger;
+//   if (rockGenerateTime<100){
+//     rockGenerateTime-=100
+//     return rockGenerateTime
+//   }
+// }
 
 // function one(ROCK_SPEED) {
 //    return ROCK_SPEED = ROCK_SPEED+1
@@ -120,7 +131,7 @@ function speedIncrease() {
         }
         if (rockLocation > GAME_WIDTH-5){
           rock.remove();
-          ++score
+          score += 10
           updateScore();
         }
         else if (impactLocation < GAME_WIDTH){
@@ -130,11 +141,6 @@ function speedIncrease() {
         return
       }
     }
-
-    rock.addEventListener("mouseover", function(e){
-      stopMotion = true;
-      e.target.remove();
-    })
 
     moveRock()
     ROCKS.push(rock)
@@ -195,6 +201,7 @@ function speedIncrease() {
   function endGame() {
     stopMotion = true;
     clearInterval(gameInterval)
+    ROCK_SPEED=0
     window.removeEventListener('keydown', moveDodger)
     for(let i = 0; i < ROCKS.length; i++){
       ROCKS[i].remove()
@@ -306,7 +313,7 @@ function speedIncrease() {
     // START.style.display = 'none';
     gameInterval = setInterval(function() {
       createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
-    }, 1000)
+    }, rockGenerateTime)
     // rockSpeed = setInterval(function() {
     //   debugger;
     //   moveRock(speed)

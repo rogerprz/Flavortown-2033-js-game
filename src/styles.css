@@ -179,18 +179,24 @@ body{
     width: 80%;
 }
 
-/* The Close Button */
-.close {
-    color: #aaaaaa;
-    margin-top: -50px;
-    float: right;
-    image: 28px;
-    font-weight: bold;
+.instruction {
+  color: #fefefe
 }
 
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+.instruction-ship {
+    padding-left: 50px;
+    padding-bottom: 30px;
+    height: 100px;
+    width: 65px;
+  }
+
+.keys {
+  width: 110px;
+  padding-left: 20px;
+}
+
+.guy-instructions {
+  padding-top: 20px;
+  width: 80px;
+
 }
