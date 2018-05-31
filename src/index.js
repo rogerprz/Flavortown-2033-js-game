@@ -6,7 +6,7 @@ const START = document.getElementById('start')
 const OVERLAY = document.getElementById("overlay")
 const PAUSE = document.getElementById("pause")
 const HIGH_SCORE = document.getElementById('high-scores')
-
+const SCORE_DISPLAY = document.getElementById("score")
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = window.innerWidth;
 const UP_ARROW = 38 ;// use e.which!
@@ -66,6 +66,8 @@ function speedIncrease() {
     window.addEventListener('keydown', moveDodger);
     bgLoop();
     OVERLAY.style.display = "none";
+    PAUSE.style.display="block"
+    SCORE_DISPLAY.style.display = "block"
     gameInterval = setInterval(function() {
       createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
     }, rockGenerateTime)
@@ -141,7 +143,6 @@ function speedIncrease() {
     for(let i = 0; i < ROCKS.length; i++){
       ROCKS[i].remove()
     }
-    // alert("YOU LOSE")
     var modal = document.getElementById('myModal')
     var closeButton = document.getElementsByClassName("close")[0]
     modal.style.display = "block";
