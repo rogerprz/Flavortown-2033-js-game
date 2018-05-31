@@ -10,9 +10,23 @@
     <div id="game">
       <div id="overlay">        
           <div id="logo"></div>
-          <h1><a id="start" href="javascript:start()">START</a></h1>
+          <h1>
+              <a href="javascript:start()" class="start_screen_links" id="start" >
+                START
+              </a>
+          </h1>
 
-          <h3>TOP SCORES</h3>
+          <h3>
+            <a href="javascript:toggleTopScores()" class="start_screen_links" id="top_scores_link">
+              TOP SCORES
+            </a>
+          </h3>
+            <a href="javascript:toggleInstructions()" class="start_screen_links" id="instructions_link">
+              INSTRUCTIONS
+            </a>
+          <h3>
+            
+          </h3>
 
           <table id='high-scores'>
             <tr>

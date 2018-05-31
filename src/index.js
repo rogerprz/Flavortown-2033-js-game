@@ -24,6 +24,15 @@ let score = 0;
 var gameInterval = null;
 const impactLocation = GAME_WIDTH-FIERI_SIZE-MECHA_SIZE;
 
+const topScoreDisplay = document.getElementById("high-scores");
+topScoreDisplay.style.visibility = "hidden";
+const instructionsDisplay = document.getElementById("instructions");
+instructionsDisplay.style.visibility = "hidden";
+
+instructionsDisplay.addEventListener("click", function(e){
+  toggleInstructions();
+})
+
 ROCK_SPEED = setInterval(speedIncrease, 10000)
 
 function speedIncrease() {
@@ -319,6 +328,22 @@ function pauseGame(e){
   }
 }
 
+
+function toggleTopScores(){
+  if (topScoreDisplay.style.visibility === "hidden"){
+    topScoreDisplay.style.visibility = "visible";
+  }else{
+    topScoreDisplay.style.visibility = "hidden";
+  }
+}
+
+function toggleInstructions(){
+  if (instructionsDisplay.style.visibility === "hidden"){
+    instructionsDisplay.style.visibility = "visible";
+  }else{
+    instructionsDisplay.style.visibility = "hidden";
+  }
+}
 
   // cLog("top dodger",dodgerTopEdge)
   // cLog("bottom dodger",dodgerBottomEdge)

@@ -76,7 +76,7 @@ table{
 
 #instructions {
   color: #fefefe;
-  background: cyan;
+  /* background: cyan; */
   position: absolute;
   width: 100%;
   height: 100%;
@@ -86,10 +86,12 @@ table{
 }
 
 .instruction {
-  background: fuchsia;
+  background: black;
   width: 45%;
   height: 45%;
-  margin: auto;
+  margin-top: 27%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .instruction-ship {
@@ -99,12 +101,16 @@ table{
   width: 65px;
 }
 
+#high-scores {
+  visibility: hidden;
+}
+
 .guy-instructions {
   padding-top: 20px;
   width: 80px;
 }
 
-#logo{
+#logo {
   background-image: url('logo.png');
   background-size: cover;
   background-repeat: no-repeat;
@@ -115,7 +121,7 @@ table{
   margin-top: 50px;
 }
 
-#start {
+.start_screen_links {
   color: white;
   position: relative;
   text-decoration: none;
@@ -159,7 +165,7 @@ table{
   z-index: 5;
 }
 
-.pauseBtn{
+.pauseBtn {
   height: 40px;
   display: none;
   width: 40px;
@@ -171,7 +177,7 @@ table{
   background-size: cover;
 }
 
-.pauseBtn:hover{
+.pauseBtn:hover {
   background-image: url('red_pause.png');
   background-size: cover;
   cursor: pointer;
@@ -200,7 +206,7 @@ table{
   position: absolute;
 }
 
-.rock:hover{
+.rock:hover {
   cursor: pointer;
 }
 
