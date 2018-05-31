@@ -116,22 +116,9 @@ function speedIncrease() {
     rock.style.right = right
     GAME.appendChild(rock)
 
-<<<<<<< HEAD
-    // if (GUY_SPEED < 5){
-    //   setInterval(function() {
-    //     return ROCK_SPEED+1
-    //   }, 4000)
-    // }
-
-    function moveRock() {
-      if (stopMotion === false){
-        rock.style.right = `${right += GUY_SPEED}px`;
-        // console.log("speed",ROCK_SPEED)
-=======
     function moveRock() {
       if (stopMotion === false){
         rock.style.right = `${right += ROCK_SPEED}px`;
->>>>>>> master
 
         let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
         if (checkCollision(rock)){
