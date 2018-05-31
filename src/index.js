@@ -28,6 +28,7 @@ const topScoreDisplay = document.getElementById("high-scores");
 topScoreDisplay.style.visibility = "hidden";
 const instructionsDisplay = document.getElementById("instructions");
 instructionsDisplay.style.visibility = "hidden";
+DODGER.style.left = "25px";
 
 instructionsDisplay.addEventListener("click", function(e){
   toggleInstructions();
@@ -65,22 +66,19 @@ function speedIncrease() {
   }
 
   function checkCollision(rock) {
-    const right = positionToInteger(rock.style.right)
+    let dodgerTopEdge = positionToInteger(DODGER.style.top);
+    let dodgerBottomEdge = positionToInteger(DODGER.style.top) + 130;
+    let dodgerLeftEdge = positionToInteger(DODGER.style.left);
+    let dodgerRightEdge = positionToInteger(DODGER.style.left) + 85;
+    
+    let rockTopEdge = positionToInteger(rock.style.top);
+    let rockBottomEdge = positionToInteger(rock.style.top) + 40;
+    let rockLeftEdge = positionToInteger(rock.style.left);
+    let rockRightEdge = positionToInteger(rock.style.left) + 40;
 
-    rock.style.right = right
-    GAME.appendChild(rock)
-    if (right>impactLocation-65){
-      const dodgerTopEdge = positionToInteger(DODGER.style.top);
-      const rockTopEdge = positionToInteger(rock.style.top);
-      const dodgerBottomEdge = positionToInteger(DODGER.style.top) + 65;
-      const rockBottomEdge = positionToInteger(rock.style.top) + 30;
-
-      return (
-        (rockTopEdge <= dodgerTopEdge && rockBottomEdge >= dodgerTopEdge) ||
-        (rockTopEdge >= dodgerTopEdge && rockBottomEdge <= dodgerBottomEdge) ||
-        (rockTopEdge <= dodgerBottomEdge && rockBottomEdge >= dodgerBottomEdge)
-        )
-      }
+    if (rockTopEdge > dodgerTopEdge && rockBottomEdge < dodgerBottomEdge && rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge){
+      return true
+    };
   }
 
   function createRock(x) {
@@ -88,22 +86,15 @@ function speedIncrease() {
     rock.className = 'rock'
     rock.style.top = `${x}px`
 
-    var right = 0
-    rock.style.right = right
+    var left = GAME_WIDTH - 50;
+    rock.style.left = left
     GAME.appendChild(rock)
-
-    // if (ROCK_SPEED < 5){
-    //   setInterval(function() {
-    //     return ROCK_SPEED+1
-    //   }, 4000)
-    // }
 
     function moveRock() {
       if (stopMotion === false){
-        rock.style.right = `${right += ROCK_SPEED}px`;
-        // console.log("speed",ROCK_SPEED)
+        rock.style.left = `${left -= ROCK_SPEED}px`;
 
-        let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
+        let rockLocation = rock.style.left.replace(/[^0-9.]/g, "");
         if (checkCollision(rock)){
           return endGame()
         }
@@ -116,10 +107,12 @@ function speedIncrease() {
         else if (impactLocation < GAME_WIDTH){
           window.requestAnimationFrame(moveRock)
         }
-      }else{
-        return
       }
     }
+
+    rock.addEventListener("click", function(e){
+      console.log(this.style.left)
+    })
 
     moveRock()
     ROCKS.push(rock)
@@ -135,44 +128,42 @@ function speedIncrease() {
 
   // ENDLESS BACKGROUND BEGIN
 
-  function bgLoop() {
+  function bgLoop(yOn) {
     let bg = document.createElement('div');
     bg.className = 'bg';
-    let img = document.createElement('img');
     GAME.appendChild(bg);
-    GAME.appendChild(bg);
-    bg.style.right = `-${4778 - window.innerWidth}px`;
-    // bg.style.right = '-3184px';
+    if (yOn){
+      bg.style.right = `-${4778}px`;
+    }else{
+      bg.style.right = `-${4778 - GAME_WIDTH}px`;
+    }
 
     function movebg() {
-      if (positionToInteger(bg.style.right) < 400){
+      console.log(bg.style.right)
+      if (positionToInteger(bg.style.right) < GAME_WIDTH){
+        let top = positionToInteger(bg.style.right) + 1
+        bg.style.right = `${top}px`
+        window.requestAnimationFrame(movebg);
         if (positionToInteger(bg.style.right) === 0) {
-          let top = positionToInteger(bg.style.right) + 1
-          bg.style.right = `${top}px`
-          window.requestAnimationFrame(movebg);
-          bgLoop();
-        }else{
-          let top = positionToInteger(bg.style.right) + 1;
-          bg.style.right = `${top}px`;
-          window.requestAnimationFrame(movebg);
+          bgLoop(true);
         }
       }else{
+        console.log(`bg is disappearing at ${bg.style.right}`)
         bg.remove()
       }
     }
-
     movebg()
     return bg
-
   }
+
+  // ENDLESS BACKGROUND END
+
   var scoreSubmit = document.getElementById('score-form')
   scoreSubmit.addEventListener("submit", (e) => {
     e.preventDefault()
     let name = document.getElementById('score-input')
     name.value
     })
-
-  // ENDLESS BACKGROUND END
 
 
   // END GAME
@@ -292,6 +283,7 @@ function speedIncrease() {
     window.addEventListener('keydown', moveDodger);
     bgLoop();
     OVERLAY.style.display = "none";
+    document.getElementById("score").style.visibility = "visible";
     // PAUSE.style.display = "block"
     // PAUSE.addEventListener('click',pauseHandler);
 
@@ -335,6 +327,10 @@ function toggleInstructions(){
     instructionsDisplay.style.visibility = "hidden";
   }
 }
+
+DODGER.addEventListener("click", function(e){
+  console.log(`left: ${DODGER.style.left}. right: ${positionToInteger(DODGER.style.left)+65}px. top: ${DODGER.style.top}. bottom: ${positionToInteger(DODGER.style.top)+65}px`)
+})
 
   // cLog("top dodger",dodgerTopEdge)
   // cLog("bottom dodger",dodgerBottomEdge)
