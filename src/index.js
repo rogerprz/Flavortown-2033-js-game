@@ -23,20 +23,10 @@ let rockGenerateTime = 1100
 ROCK_SPEED = setInterval(speedIncrease, 10000)
 
 function speedIncrease() {
-  if (ROCK_SPEED<10){
+  if (ROCK_SPEED<14){
     ++ROCK_SPEED
   }
 }
-
-// rockGenerateTime = setInterval(reduceGenerateTime,30000)
-
-// function reduceGenerateTime() {
-//   debugger;
-//   if (rockGenerateTime<100){
-//     rockGenerateTime-=100
-//     return rockGenerateTime
-//   }
-// }
 
 // function one(ROCK_SPEED) {
 //    return ROCK_SPEED = ROCK_SPEED+1
@@ -218,10 +208,17 @@ function speedIncrease() {
     scoreSubmit.addEventListener("submit", (e) => {
       e.preventDefault()
       let name = document.getElementById('score-input')
-      name.value
-      debugger
+
+      fetch(USERS_URL, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(
+        {name: `${name.value}`,
+        score: score})
+      }).then(response => response.json()).then(json => console.log(json))
     })
   }
+
 
   function moveDodger(e) {
     let action = e.which
