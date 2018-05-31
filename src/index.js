@@ -232,7 +232,7 @@ function pauseGame(e){
     window.requestAnimationFrame(function() {
       const top = positionToInteger(DODGER.style.top)
       if (top > 0){
-        DODGER.style.top = `${top-15}px`;
+        DODGER.style.top = `${top-18}px`;
       }
     })
   }
@@ -241,7 +241,7 @@ function pauseGame(e){
     window.requestAnimationFrame(function(){
       const down = positionToInteger(DODGER.style.top)
       if (down < 496){
-        DODGER.style.top = `${down + 15}px`
+        DODGER.style.top = `${down + 18}px`
       }
     })
   }
