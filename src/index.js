@@ -52,7 +52,7 @@ function speedIncrease() {
   let score = 0;
 
   DODGER.addEventListener("click", function(e){
-    // ADD SOME TESTING SHITE
+    debugger;
   })
 
   // GET request for high scores
@@ -133,6 +133,7 @@ function speedIncrease() {
           rock.remove();
           score += 10
           updateScore();
+          ROCKS.shift();
         }
         else if (impactLocation < GAME_WIDTH){
           window.requestAnimationFrame(moveRock)
@@ -219,7 +220,7 @@ function speedIncrease() {
       let name = document.getElementById('score-input')
       name.value
       debugger
-      })
+    })
   }
 
   function moveDodger(e) {
