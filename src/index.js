@@ -21,6 +21,10 @@ const submitText = document.getElementById('score-text')
 const modalContent = document.getElementById('modal-content')
 //other
 let bg = document.createElement("div");
+var audio = document.createElement("audio")
+audio.src = 'assets/F2033_audio.mp3'
+var loseAudio = document.createElement("audio")
+loseAudio.src = 'assets/guylose2.mp3'
 let ROCKS = []
 let MECHA_SIZE=40
 let FIERI_SIZE= 30
@@ -79,6 +83,7 @@ function speedIncrease() {
     gameInterval = setInterval(function() {
       createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
     }, rockGenerateTime)
+    audio.play()
   }
   // End Start
 
@@ -89,7 +94,7 @@ function speedIncrease() {
     let dodgerBottomEdge = positionToInteger(DODGER.style.top) + 130;
     let dodgerLeftEdge = positionToInteger(DODGER.style.left);
     let dodgerRightEdge = positionToInteger(DODGER.style.left) + 85;
-    
+
     let rockTopEdge = positionToInteger(rock.style.top);
     let rockBottomEdge = positionToInteger(rock.style.top) + 40;
     let rockLeftEdge = positionToInteger(rock.style.left);
@@ -138,6 +143,10 @@ function speedIncrease() {
 
 //BEGIN End Game functions
   function endGame() {
+    audio.pause();
+    audio.currentTime = 0
+    loseAudio.play()
+    loseAudio.volume = 0.2
     stopMotion = true;
     clearInterval(gameInterval)
     ROCK_SPEED=0
@@ -171,6 +180,8 @@ function speedIncrease() {
       playAgain.addEventListener("click", (r) => {
         r.preventDefault()
         playAgain.style.display= "none"
+        loseAudio.pause()
+        loseAudio.currentTime = 0
         resetGame()
       })
     })
