@@ -1,4 +1,4 @@
-/*
+/* 
 FLAVORTOWN 2030 | COPYRIGHT 2018
 CREATED BY JOE GREINER, ROGER PEREZ, BRIE SAEZ
 
@@ -18,7 +18,13 @@ body{
 #game{
   background-image: url('hellscape.jpg');
   top: 0px;
-  position: absolute;
+  /* position: absolute; */
+  height: 600px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  width: 100%;
 }
 
 
@@ -137,21 +143,12 @@ table{
 
 /* ----------- GAMEPLAY ----------- */
 
-#game {
-  background-color: #111;
-  height: 600px;
-  margin: 0 auto;
-  overflow: hidden;
-  position: relative;
-  text-align: center;
-  width: 100%;
-}
-
 .bg {
   width: 4778px;
   height: 600px;
-  background: tan;
   background-image: url('hellscape.jpg');
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
   top: 0px;
   position: absolute;
   z-index: 0;
@@ -159,11 +156,11 @@ table{
 
 #score {
   color: #fff;
-  display: none;
   position: absolute;
   top: 15px;
   left: 15px;
   z-index: 5;
+  visibility: hidden;
 }
 
 .pauseBtn {
@@ -200,7 +197,7 @@ table{
 .rock {
   width: 40px;
   height: 40px;
-  background-image: url('guy.png');
+  background-image: url('guy.gif');
   background-size: cover;
   background-repeat: no-repeat;
   /* background: fuchsia; */
