@@ -191,6 +191,8 @@ function resetGame() {
   SCORE_DISPLAY.style.visibility = "hidden"
   modal.style.display="none"
   stopMotion= false
+  DODGER.style.top = "280px";
+  DODGER.style.left = "25px";
   score = 0
   updateScore()
   ROCKS= []
