@@ -132,6 +132,7 @@ function speedIncrease() {
         }else if (rockLocation <= 25 ){
           console.log(`Goodbye, ${rock}.`);
           clearInterval(nomInterval);
+          nomAudio.pause();
           rock.remove();
           score += 10
           updateScore();
@@ -161,6 +162,8 @@ function speedIncrease() {
     window.removeEventListener('keydown', moveDodger)
     for(let i = 0; i < ROCKS.length; i++){
       ROCKS[i].remove()
+      clearInterval(nomInterval);
+      nomAudio.pause();
     }
     var closeButton = document.getElementsByClassName("close")[0]
     modal.style.display = "block";
@@ -216,14 +219,13 @@ function resetGame() {
   });
 }
 
-
-//
-
 //Supporting functions
 
 function deleteAllRocks(){
   for (const rock of ROCKS){
     rock.remove();
+    clearInterval(nomInterval);
+    nomAudio.pause();
   }
 }
 
