@@ -52,36 +52,26 @@
       <div id="myModal" class="modal">
         <!-- Modal content -->
         <div id="modal-content" class="modal-content">
-          <img class="close"src="http://replygif.net/i/1483.gif" alt="">
-          <p>You Lose. Welcome to Flavortown.</p><br>
+          <img class="close"src="src/sorry-not-sorry.jpg" alt="">
+          <p>You Lose. Welcome to Flavortown.</p>
           <p id="score-text">Submit Your Name to the Leaderboard:</p>
           <form id="score-form" class="score-form" action="index.html" method="post">
-            <input id=
-            "score-input" type="text" name="name" value="">
-            <button type="submit">Submit Score</button>
+            <center>
+              <input id=
+              "score-input" type="text" name="name" value="">
+              <button type="submit">Submit Score</button>
+            </center>
           </form>
-          <button id="playAgain" type="button" style="display:none;" name="button">"Play Again?"</button>
+          <center>
+            <button id="playAgain" type="button" style="display:none;" name="button">Play Again?</button>
+          </center>
         </div>
       </div>
 
       <div id="instructions">
-        <table class="instruction">
-          <tr>
-            <th align="center">How to Play</th>
-            <th></th>
-          </tr>
-          <tr>
-            <td align="left">This is you:</td>
-            <td> <img class="instruction-ship" src="src/ship.png" alt=""></td>
-          </tr>
-          <tr class="keys-row">
-            <td align="left">You move with these:</td>
-            <td><img class="keys" src="src/arrow_keys.png" alt=""></td>
-          </tr>
-          <tr class="keys-row">
-            <td align="left">Avoid:</td>
-            <td><img class="guy-instructions" src="src/guy.png" alt=""></td>
-          </tr>
+        <div class="instruction-cell">This is you: <img class="thumb" src="src/ship.png" alt="Ship"></div>
+        <div class="instruction-cell">You move with these: <img class="thumb" src="src/arrow_keys.png" alt="Up/Down Arrow Keys"></div>
+        <div class="instruction-cell">Avoid: <img class="thumb" src="src/guy.png" alt="Avoid Fieri"></div>
       </div>
 
     <script src="src/index.js"></script>

@@ -41,6 +41,7 @@ topScoreDisplay.style.visibility = "hidden";
 const instructionsDisplay = document.getElementById("instructions");
 instructionsDisplay.style.visibility = "hidden";
 DODGER.style.left = "25px";
+const nomAudio =  new Audio('src/nom.mp3');
 
 instructionsDisplay.addEventListener("click", function(e){
   toggleInstructions();
@@ -116,15 +117,21 @@ function speedIncrease() {
     rock.style.left = left
     GAME.appendChild(rock)
 
+    nomInterval = setInterval(function() {
+      nom();
+    }, 500);
+
     function moveRock() {
       if (stopMotion === false){
         rock.style.left = `${left -= ROCK_SPEED}px`;
         let rockLocation = rock.style.left.replace(/[^0-9.]/g, "");
 
         if (checkCollision(rock)){
+          clearInterval(nomInterval);
           return endGame()
         }else if (rockLocation <= 25 ){
           console.log(`Goodbye, ${rock}.`);
+          clearInterval(nomInterval);
           rock.remove();
           score += 10
           updateScore();
@@ -196,6 +203,8 @@ function resetGame() {
   SCORE_DISPLAY.style.visibility = "hidden"
   modal.style.display="none"
   stopMotion= false
+  DODGER.style.top = "280px";
+  DODGER.style.left = "25px";
   score = 0
   updateScore()
   ROCKS= []
@@ -379,6 +388,10 @@ function toggleInstructions(){
   }else{
     instructionsDisplay.style.visibility = "hidden";
   }
+}
+
+function nom(){
+  nomAudio.play();
 }
 
   // cLog("top dodger",dodgerTopEdge)
