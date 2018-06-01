@@ -35,10 +35,11 @@ const topScoreDisplay = document.getElementById("high-scores");
 topScoreDisplay.style.visibility = "hidden";
 const instructionsDisplay = document.getElementById("instructions");
 instructionsDisplay.style.visibility = "hidden";
+DODGER.style.left = "25px";
 
 instructionsDisplay.addEventListener("click", function(e){
   toggleInstructions();
-})
+});
 
 ROCK_SPEED = setInterval(speedIncrease, 10000)
 
@@ -74,7 +75,7 @@ function speedIncrease() {
     bgLoop();
     OVERLAY.style.display = "none";
     PAUSE.style.display="block"
-    SCORE_DISPLAY.style.display = "block"
+    SCORE_DISPLAY.style.visibility = "visible"
     gameInterval = setInterval(function() {
       createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
     }, rockGenerateTime)
@@ -84,22 +85,19 @@ function speedIncrease() {
 
 //Game movement functions
   function checkCollision(rock) {
-    const right = positionToInteger(rock.style.right);
-    rock.style.right = right
+    let dodgerTopEdge = positionToInteger(DODGER.style.top);
+    let dodgerBottomEdge = positionToInteger(DODGER.style.top) + 130;
+    let dodgerLeftEdge = positionToInteger(DODGER.style.left);
+    let dodgerRightEdge = positionToInteger(DODGER.style.left) + 85;
+    
+    let rockTopEdge = positionToInteger(rock.style.top);
+    let rockBottomEdge = positionToInteger(rock.style.top) + 40;
+    let rockLeftEdge = positionToInteger(rock.style.left);
+    let rockRightEdge = positionToInteger(rock.style.left) + 40;
 
-    GAME.appendChild(rock)
-    if (right>impactLocation-65){ //What is the 65 for?
-      const dodgerTopEdge = positionToInteger(DODGER.style.top);
-      const rockTopEdge = positionToInteger(rock.style.top);
-      const dodgerBottomEdge = positionToInteger(DODGER.style.top) + 65;
-      const rockBottomEdge = positionToInteger(rock.style.top) + 30;
-
-      return (
-        (rockTopEdge <= dodgerTopEdge && rockBottomEdge >= dodgerTopEdge) ||
-        (rockTopEdge >= dodgerTopEdge && rockBottomEdge <= dodgerBottomEdge) ||
-        (rockTopEdge <= dodgerBottomEdge && rockBottomEdge >= dodgerBottomEdge)
-        )
-      }
+    if (rockTopEdge > dodgerTopEdge && rockBottomEdge < dodgerBottomEdge && rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge){
+      return true
+    };
   }
 
   function createRock(x) {
@@ -108,35 +106,31 @@ function speedIncrease() {
     rock.className = 'rock'
     rock.style.top = `${x}px`
 
-    var right = 0
-    rock.style.right = right
+    var left = GAME_WIDTH - 50;
+    rock.style.left = left
     GAME.appendChild(rock)
 
     function moveRock() {
       if (stopMotion === false){
-        rock.style.right = `${right += ROCK_SPEED}px`;
+        rock.style.left = `${left -= ROCK_SPEED}px`;
+        let rockLocation = rock.style.left.replace(/[^0-9.]/g, "");
 
-        let rockLocation = rock.style.right.replace(/[^0-9.]/g, "");
         if (checkCollision(rock)){
           return endGame()
-        }
-        if (rockLocation > GAME_WIDTH-5){
+        }else if (rockLocation <= 25 ){
+          console.log(`Goodbye, ${rock}.`);
           rock.remove();
           score += 10
           updateScore();
           ROCKS.shift();
-        }
-        else if (impactLocation < GAME_WIDTH){
+        }else{
           window.requestAnimationFrame(moveRock)
         }
       }
-      else{
-        return // What are we returning?
-      }
     }
-    moveRock()
-    ROCKS.push(rock)
-    return rock
+    moveRock();
+    ROCKS.push(rock);
+    return rock;
   }
 
 //END of game movement
@@ -187,7 +181,7 @@ function speedIncrease() {
 function resetGame() {
   OVERLAY.style.display = "block";
   PAUSE.style.display="none"
-  SCORE_DISPLAY.style.display = "none"
+  SCORE_DISPLAY.style.visibility = "hidden"
   modal.style.display="none"
   stopMotion= false
   score = 0
@@ -323,25 +317,23 @@ function createBG(){
 }
 // ENDLESS BACKGROUND BEGIN
 
-function bgLoop() {
+function bgLoop(yOn) {
+  let bg = document.createElement('div');
   bg.className = 'bg';
-  let img = document.createElement('img');
   GAME.appendChild(bg);
-  GAME.appendChild(bg);
-  bg.style.right = `-${4778 - window.innerWidth}px`;
-  // bg.style.right = '-3184px';
+  if (yOn){
+    bg.style.right = `-${4778}px`;
+  }else{
+    bg.style.right = `-${4778 - GAME_WIDTH}px`;
+  }
 
   function movebg() {
-    if (positionToInteger(bg.style.right) < 400){
+    if (positionToInteger(bg.style.right) < GAME_WIDTH){
+      let top = positionToInteger(bg.style.right) + 1
+      bg.style.right = `${top}px`
+      window.requestAnimationFrame(movebg);
       if (positionToInteger(bg.style.right) === 0) {
-        let top = positionToInteger(bg.style.right) + 1
-        bg.style.right = `${top}px`
-        window.requestAnimationFrame(movebg);
-        bgLoop();
-      }else{
-        let top = positionToInteger(bg.style.right) + 1;
-        bg.style.right = `${top}px`;
-        window.requestAnimationFrame(movebg);
+        bgLoop(true);
       }
     }else{
       bg.remove()
@@ -351,12 +343,9 @@ function bgLoop() {
   return bg
 }
 
-function stopBackground() {
-  bg.style.right = 600
-}
-
-
 // ENDLESS BACKGROUND END
+
+
 scoreSubmit.addEventListener("submit", (e) => {
   e.preventDefault()
   let name = document.getElementById('score-input')
