@@ -21,7 +21,7 @@ const submitText = document.getElementById('score-text')
 const modalContent = document.getElementById('modal-content')
 // audio
 var audio = document.createElement("audio")
-audio.src = 'assets/audio.mp3'
+audio.src = 'assets/audio2.mp3'
 var loseAudio = document.createElement("audio")
 loseAudio.src = 'assets/guylose.mp3'
 //other
