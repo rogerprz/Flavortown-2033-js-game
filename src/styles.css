@@ -84,20 +84,29 @@ table{
   color: #fefefe;
   /* background: cyan; */
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 80%;
   z-index: 10;
-  top: 0px;
+  top: 450px;
+  margin-left: 15%;
+  margin-right: 5%;
   visibility: hidden;
 }
 
-.instruction {
-  background: black;
-  width: 45%;
-  height: 45%;
-  margin-top: 27%;
+.instruction-cell {
+  font-size: .75em;
+  float: left;
+  max-width: 35%;
+  vertical-align: middle;
   margin-left: auto;
   margin-right: auto;
+}
+
+.thumb {
+  max-width: 50px;
+  max-height: 50px;
+  float: right;
+  margin-right: 50px;
+  margin-top: -25px;
 }
 
 .instruction-ship {
