@@ -19,6 +19,11 @@ const modal = document.getElementById('myModal')
 const scoreSubmit = document.getElementById('score-form')
 const submitText = document.getElementById('score-text')
 const modalContent = document.getElementById('modal-content')
+// audio
+var audio = document.createElement("audio")
+audio.src = 'assets/audio.mp3'
+var loseAudio = document.createElement("audio")
+loseAudio.src = 'assets/guylose.mp3'
 //other
 let bg = document.createElement("div");
 let ROCKS = []
@@ -79,6 +84,7 @@ function speedIncrease() {
     gameInterval = setInterval(function() {
       createRock(Math.floor(Math.random() *  (GAME_HEIGHT - 20)))
     }, rockGenerateTime)
+    audio.play()
   }
   // End Start
 
@@ -89,7 +95,7 @@ function speedIncrease() {
     let dodgerBottomEdge = positionToInteger(DODGER.style.top) + 130;
     let dodgerLeftEdge = positionToInteger(DODGER.style.left);
     let dodgerRightEdge = positionToInteger(DODGER.style.left) + 85;
-    
+
     let rockTopEdge = positionToInteger(rock.style.top);
     let rockBottomEdge = positionToInteger(rock.style.top) + 40;
     let rockLeftEdge = positionToInteger(rock.style.left);
@@ -138,6 +144,10 @@ function speedIncrease() {
 
 //BEGIN End Game functions
   function endGame() {
+    audio.pause();
+    audio.currentTime = 0
+    loseAudio.play()
+    loseAudio.volume = 0.2
     stopMotion = true;
     clearInterval(gameInterval)
     ROCK_SPEED=0
@@ -170,6 +180,8 @@ function speedIncrease() {
 
       playAgain.addEventListener("click", (r) => {
         r.preventDefault()
+        loseAudio.pause()
+        loseAudio.currentTime = 0
         playAgain.style.display= "none"
         resetGame()
       })
