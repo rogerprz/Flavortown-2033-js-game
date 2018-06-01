@@ -211,9 +211,22 @@ function resetGame() {
 
 //Supporting functions
 
+<<<<<<< HEAD
 function deleteAllRocks(){
   for (const rock of ROCKS){
     rock.remove();
+=======
+  function moveRock() {
+     if (checkCollision(rock)){
+       endGame()
+     }else if (positionToInteger(rock.style.right) < GAME_WIDTH){
+      right = right + Math.floor(Math.random() * 20)
+      rock.style.right = `${right}px`
+      window.requestAnimationFrame(moveRock)
+    }else{
+      rock.remove()
+    }
+>>>>>>> 6ecb3801dcdaad3de53a2d5911964fd1184c28fb
   }
 }
 
@@ -364,12 +377,18 @@ scoreSubmit.addEventListener("submit", (e) => {
 })
 
 
+<<<<<<< HEAD
 function toggleTopScores(){
   if (topScoreDisplay.style.visibility === "hidden"){
     topScoreDisplay.style.visibility = "visible";
   }else{
     topScoreDisplay.style.visibility = "hidden";
   }
+=======
+  gameInterval = setInterval(function() {
+    createRock(Math.floor(Math.random() *  (GAME_WIDTH)))
+  }, 300)
+>>>>>>> 6ecb3801dcdaad3de53a2d5911964fd1184c28fb
 }
 
 function toggleInstructions(){
