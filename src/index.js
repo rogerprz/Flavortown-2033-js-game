@@ -24,15 +24,14 @@ let bg = document.createElement("div");
 let ROCKS = []
 let MECHA_SIZE=40
 let FIERI_SIZE= 30
-let GUY_SPEED = 4
-let ROCK_SPEED = 5
+let GUY_SPEED = 1
+let ROCK_SPEED = 1
 let stopMotion = false;
 let rockGenerateTime = 1100
 let score = 0;
 var gameInterval = null;
 var additionalGuys = [];
 const impactLocation = GAME_WIDTH-FIERI_SIZE-MECHA_SIZE;
-let bg = document.createElement("div");
 const topScoreDisplay = document.getElementById("high-scores");
 topScoreDisplay.style.visibility = "hidden";
 const instructionsDisplay = document.getElementById("instructions");
@@ -165,10 +164,10 @@ function speedIncrease() {
       clearInterval(ROCK_SPEED);
       clearInterval(gameInterval);
       additionalGuys.forEach(guy => clearInterval(guy))
-      ROCK_SPEED = null
-      GUY_SPEED = null
-      additionalGuys = null
-      gameInterval = null
+      ROCK_SPEED = 0
+      GUY_SPEED = 0
+      additionalGuys = []
+      gameInterval = 0
     }
     window.removeEventListener('keydown', moveDodger)
     for(let i = 0; i < ROCKS.length; i++){
