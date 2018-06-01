@@ -379,6 +379,9 @@ scoreSubmit.addEventListener("submit", (e) => {
 function toggleTopScores(){
   if (topScoreDisplay.style.visibility === "hidden"){
     topScoreDisplay.style.visibility = "visible";
+    if (instructionsDisplay.style.visibility === "visible"){
+      instructionsDisplay.style.visibility = "hidden";
+    }
   }else{
     topScoreDisplay.style.visibility = "hidden";
   }
@@ -387,6 +390,9 @@ function toggleTopScores(){
 function toggleInstructions(){
   if (instructionsDisplay.style.visibility === "hidden"){
     instructionsDisplay.style.visibility = "visible";
+    if (topScoreDisplay.style.visibility === "visible"){
+      topScoreDisplay.style.visibility = "hidden";
+    }
   }else{
     instructionsDisplay.style.visibility = "hidden";
   }
