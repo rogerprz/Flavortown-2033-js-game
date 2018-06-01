@@ -77,6 +77,8 @@ function speedIncrease() {
   //Start Game
 
   function start() {
+    nomAudio.src = 'src/nom.mp3'
+    nomAudio.pause()
     window.addEventListener('keydown', moveDodger);
     bgLoop();
     OVERLAY.style.display = "none";
@@ -155,7 +157,7 @@ function speedIncrease() {
     audio.pause();
     audio.currentTime = 0
     loseAudio.play()
-    loseAudio.volume = 0.2
+    loseAudio.volume = 0.3
     stopMotion = true;
     clearInterval(gameInterval)
     ROCK_SPEED=0
@@ -163,7 +165,7 @@ function speedIncrease() {
     for(let i = 0; i < ROCKS.length; i++){
       ROCKS[i].remove()
       clearInterval(nomInterval);
-      nomAudio.pause();
+      nomAudio.src = "";
     }
     var closeButton = document.getElementsByClassName("close")[0]
     modal.style.display = "block";
